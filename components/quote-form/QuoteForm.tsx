@@ -25,7 +25,7 @@ type QuoteFormValues = {
   countryCode: string;
 };
 
-const schema = yup.object().shape({
+const schema:any = yup.object().shape({
   bookingType: yup.string().required("Booking type is required"),
   departure: yup
     .date()
@@ -63,7 +63,7 @@ export default function QuoteForm() {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<QuoteFormValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
     mode: "onChange",
     defaultValues: {
       bookingType: "oneway",
@@ -73,9 +73,11 @@ export default function QuoteForm() {
     },
   });
 
+  console.log(errors)
   const onSubmit = (data: QuoteFormValues) => {
     // console.log({ ...data, tripType });
     // alert(`Submitted (${tripType})`);
+    console.log(data);
     reset();
   };
 
@@ -91,7 +93,6 @@ export default function QuoteForm() {
     { value: "+971", label: "+971" },
   ];
 
-  console.log(watch("bookingType"));
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="text-white w-full space-y-4">
       {/* Input Grid */}
