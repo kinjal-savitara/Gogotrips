@@ -32,7 +32,7 @@ const AutoScrollSlider: React.FC = () => {
   ]);
 
   return (
-    <div className="container-inner relative after:w-20 after:h-full after:absolute after:top-0 after:bottom-0 after:right-6 md:after:right-8 lg:after:right-12 after:z-10 after:bg-linear-to-l after:from-0% after:to-100% after:from-[#9AA1A6] after:to-[#8A8A8A00] before:w-20 before:h-full before:absolute before:top-0 before:bottom-0 before:left-6 md:before:left-8 lg:before:left-12 before:z-10 before:bg-linear-to-r before:from-0% before:to-100% before:from-[#8F9595] before:to-[#8A8A8A00]">
+    <div className=" relative after:w-20 after:h-full after:absolute after:top-0 after:bottom-0 after:right-6 md:after:right-8 lg:after:right-12 after:z-10 after:bg-linear-to-l after:from-0% after:to-100% after:from-[#8A8A8A00] after:to-[#8A8A8A00]  before:h-full before:absolute before:top-0 before:bottom-0 before:left-6 md:before:left-8 lg:before:left-12 before:z-10 before:bg-linear-to-r before:from-0% before:to-100% before:from-[#8F9595] before:to-[#8A8A8A00]">
       <div className={styles.embla}>
         <div className={styles.embla__viewport} ref={emblaRef}>
           <div className={styles.embla__container}>

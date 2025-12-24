@@ -7,6 +7,8 @@ import { Separator } from "../ui/separator";
 
 export default function Header() {
   return (
+   
+
     <header className="fixed container-inner w-[calc(100%-24px)] sm:w-[calc(100%-48px)] md:w-[calc(100%-64px)] lg:w-[calc(100%-86px)] sm:px-6 inset-x-0 top-0 z-50 mt-5 rounded-md transition-all duration-300 bg-[#FFFFFF85] backdrop-blur-[8.5px] sm:py-4 px-2 py-3">
       <div className="flex items-center justify-between">
         {/* Logo */}
@@ -47,3 +49,5 @@ export default function Header() {
     </header>
   );
 }
+
+

@@ -9,6 +9,7 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import CustomSelect from "../custom-select/CustomSelect";
 import { DateRangePicker } from "../datepicker/DateRangePicker";
+import { DatePicker } from "../datepicker/date-picker";
 
 type QuoteFormValues = {
   bookingType: string;
@@ -58,12 +59,14 @@ export default function QuoteForm() {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<QuoteFormValues>({
     resolver: yupResolver(schema),
     mode: "onChange",
     defaultValues: {
+      bookingType: "oneway",
       departure: undefined,
       returnDate: undefined,
       countryCode: "+1",
@@ -88,6 +91,7 @@ export default function QuoteForm() {
     { value: "+971", label: "+971" },
   ];
 
+  console.log(watch("bookingType"));
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="text-white w-full space-y-4">
       {/* Input Grid */}
@@ -101,9 +105,12 @@ export default function QuoteForm() {
               className="min-w-[120px] col-span-full w-max"
               {...field}
               options={typeOptions}
+              value={typeOptions.find((i) => i.value === field.value)}
+             
             />
           )}
         />
+        
         <Controller
           name="departure"
           control={control}
@@ -111,7 +118,7 @@ export default function QuoteForm() {
             <Controller
               name="returnDate"
               control={control}
-              render={({ field: returnField }) => (
+              render={({ field: returnField }) => (watch('bookingType') as any)?.value === 'return' ? (
                 <div className="space-y-1 w-full">
                   <DateRangePicker
                     departure={field.value}
@@ -126,7 +133,11 @@ export default function QuoteForm() {
                       {fieldState.error?.message || errors.returnDate?.message}
                     </p>
                   )}
-                </div>
+                </div>)
+                :(
+                  <div className="space-y-1 w-full">
+                    <DatePicker/>
+                    </div>
               )}
             />
           )}
@@ -224,6 +235,12 @@ export default function QuoteForm() {
           variant="secondary"
           disabled={isSubmitting}
           className="px-4 py-3 text-xl"
+          onClick={() => {
+            if (isSubmitting) {
+              window.open("https://wa.me/1234567890", "_blank");
+            }
+          }}
+         
           // className="bg-white text-black font-semibold rounded-full px-8 py-2 hover:bg-gray-100"
         >
           {isSubmitting ? "Submitting..." : "Get Your FREE Quote Now"}

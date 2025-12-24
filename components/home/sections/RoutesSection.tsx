@@ -80,6 +80,7 @@ export default function RoutesSection() {
             <Button
               className="absolute text-[8px] sm:text-sm md:text-lg md:bottom-3 left-0 right-0 mx-1.5 md:mx-5 max-md:h-8 bottom-1.5"
               variant={"blur"}
+              onClick={() => window.open("https://wa.me/1234567890", "_blank")}
             >
               {item.title}
             </Button>
@@ -89,7 +90,8 @@ export default function RoutesSection() {
 
       {/* CTA Button */}
       <div className="text-center">
-        <Button className="text-[15px] md:text-xl">Get Your Quote Instant</Button>
+        <Button className="text-[15px] md:text-xl"
+          onClick={() => window.open("https://wa.me/1234567890", "_blank")}>Get Your Quote Instant</Button>
       </div>
     </section>
   );

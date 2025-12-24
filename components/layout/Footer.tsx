@@ -290,5 +290,86 @@ export default function Footer() {
         © {new Date().getFullYear()} GoGo Trips. All Rights Reserved.
       </div> */}
     </footer>
+
   );
 }
+
+// "use client";
+
+// import { CALL_URL, EMAIL, EMAIL_URL, PHONE_NUMBER } from "@/app/constant";
+// import { FacebookIcon, InstagramIcon, LinkedinIcon, LocationEdit, Mail, Phone, TwitterIcon } from "lucide-react";
+// import Image from "next/image";
+// import Link from "next/link";
+
+
+// function Footer() {
+//   return (
+//     <div >
+//       <footer className="bg-[#254165] text-white py-6 px-4 md:px-12 sm:px-4">
+//         <div className="xs:px-4 grid grid-cols-12 gap-y-10 md:gap-2">
+//           {/* Footer Logo */}
+//           <div className="col-span-12 sm:col-span-6 md:col-span-2">
+//             <Image
+//               src="/logo-white.png"
+//               alt="GoGo Trips Logo"
+//               width={120}
+//               height={68}
+//               className="object-contain"
+//             />
+//           </div>
+//           {/* Links */}
+//           <div className="col-span-12 xs:col-span-6 md:col-span-2">
+//             <h2 className="text-base sm:text-xl font-semibold mb-2"> Links</h2>
+//             <ul>
+//               <li className="mb-1"><a href="/" className="hover:underline">Home</a></li>
+//               <li className="mb-1"><a href="/" className="hover:underline">About Us</a></li>
+//               <li className="mb-1"><a href="/" className="hover:underline">Services</a></li>
+//               <li className="mb-1"><a href="/" className="hover:underline">Tours</a></li>
+//               <li className="mb-1"><a href="/" className="hover:underline">Gallery</a></li>
+//               <li className="mb-1"><a href="/" className="hover:underline">Contact</a></li>
+//             </ul>
+//           </div>
+//           {/* Contact Info */}
+//           <div className="col-span-12 xs:col-span-6 md:col-span-3">
+//             <h2 className="text-base sm:text-xl font-semibold mb-2"> Contact Us</h2>
+//             <Link href="/" className="flex flex-row gap-2 sm:grid-cols-2">
+//             <LocationEdit className="w-4 h-4" /> 8 The Green, Suite B, Dover,<br />Delaware - 19901
+//             </Link>
+//             <Link href={CALL_URL} className="flex items-center gap-2 hover:underline">
+//               <Phone className="w-4 h-4" />Phone: {PHONE_NUMBER}
+//             </Link>
+
+//             <Link href={EMAIL_URL} className="flex items-center gap-2 hover:underline">
+//              <Mail className="w-4 h-4" />Email: {EMAIL}
+//             </Link>
+//           </div>
+//           {/* follow Us */}
+//           <div className="col-span-12 sm:col-span-6 md:col-span-4">
+//             <h2 className="text-xl font-semibold mb-2"> Newsletter</h2>
+//             <p className="mb-3">Subscribe to our newsletter to get the latest updates.</p>
+//             <div className="flex flex-col xs:flex-row max-xs:gap-4">
+//               <input
+//                 type="email"
+//                 placeholder="Enter your email"
+//                 className="p-2 border bg-transparent focus:outline-none" />
+//               <button className="xs:ml-2 p-2 border bg-transparent text-white">Subscribe</button>
+//             </div>
+//             <h2 className="text-xl font-semibold mb-2 mt-4"> Follow Us :</h2>
+//             <div className="flex space-x-4 text-2xl">
+//               <FacebookIcon className="w-4 h-4" />
+//               <InstagramIcon className="w-4 h-4" />
+//               <LinkedinIcon className="w-4 h-4" />
+//               <TwitterIcon className="w-4 h-4" />
+//             </div>
+//           </div>
+//         </div>
+//         <hr className="my-6 border-white/20" />
+//         <p className="text-center text-lg">&copy; 2025 GogoTrip. All rights reserved.</p>
+//       </footer>
+//     </div>
+//   );
+// }
+
+// export default Footer;
+
+

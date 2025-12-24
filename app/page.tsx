@@ -10,12 +10,12 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <FeaturesSection done />
-      <RoutesSection done />
-      <TrustSection done />
-      <Testimonials done />
-      <FaqSection done />
-      <JoinVIPList done />
+      <FeaturesSection />
+      <RoutesSection />
+      <TrustSection />
+      <Testimonials />
+      <FaqSection />
+      <JoinVIPList />
       {/* <OurMarkets />
       <OurKeyProducts />
       <BeganSection />

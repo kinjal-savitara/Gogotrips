@@ -4,6 +4,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { format, parseISO } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import * as React from "react";
 
 interface DateRangePickerProps {
@@ -51,6 +52,7 @@ export function DateRangePicker({
       )}
     >
       {/* Departure Date */}
+      <CalendarIcon className="text-sm text-white" />
       <Popover
         open={openType === "departure"}
         onOpenChange={(open) => setOpenType(open ? "departure" : null)}
@@ -85,11 +87,13 @@ export function DateRangePicker({
       <span className="text-white/70">-</span>
 
       {/* Return Date */}
+      <CalendarIcon className=" text-white" />
       <Popover
         open={openType === "return"}
         onOpenChange={(open) => setOpenType(open ? "return" : null)}
       >
         <PopoverTrigger asChild>
+          
           <button
             className={cn(
               "text-sm px-3 text-left flex-1 py-1 truncate hover:bg-primary/30 text-white rounded-standard transition-colors h-full",
