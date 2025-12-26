@@ -7,7 +7,7 @@ import Image from "next/image";
 import React, { useCallback, useEffect, useRef } from "react";
 import styles from "./hero-slider.module.css";
 
-const TWEEN_FACTOR_BASE = 0.90;
+const TWEEN_FACTOR_BASE = 0.04;
 
 type BlackFridayCardProps = {
   src: string
