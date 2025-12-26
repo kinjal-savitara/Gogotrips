@@ -16,7 +16,7 @@ export function DatePicker() {
         <Button
           variant="outline"
           data-empty={!date}
-          className="text-white w-full justify-start text-left font-normal bg-white/25 h-10 hover:text-white hover:bg-white/30  "
+          className="text-white w-full justify-start px-3 py-1 text-left font-normal bg-white/25 h-10 hover:text-white hover:bg-white/30  "
         >
           <CalendarIcon />
           {date ? format(date, "PPP") : <span className="">Pick a date</span>}
