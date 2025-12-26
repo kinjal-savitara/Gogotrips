@@ -60,7 +60,7 @@ export function DateRangePicker({
         <PopoverTrigger asChild>
           <button
             className={cn(
-              "text-sm px-3 text-left flex-1 py-1 truncate hover:bg-primary/30 text-white transition-colors rounded-standard h-full ",
+              "text-sm px-2 text-left flex-1 py-1 truncate hover:bg-primary/30 text-white transition-colors rounded-standard h-full ",
               !departure && "text-project-white font-light"
             )}
           >
@@ -84,7 +84,7 @@ export function DateRangePicker({
         </PopoverContent>
       </Popover>
 
-      <span className="text-white/70">-</span>
+      <span className="text-white/70 mr-5">-</span>
 
       {/* Return Date */}
       <CalendarIcon className="text-white w-4 h-4" />

@@ -64,6 +64,15 @@ export default function Testimonials() {
     },
     [emblaApi]
   );
+useEffect(() => {
+  if (!emblaApi) return;
+
+  const autoplay = setInterval(() => {
+    emblaApi.scrollNext();
+  }, 3000); // speed (ms)
+
+  return () => clearInterval(autoplay);
+}, [emblaApi]);
 
   const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
     setSelectedIndex(emblaApi.selectedScrollSnap());
@@ -104,6 +113,7 @@ export default function Testimonials() {
           engine.slideLooper.loopPoints.forEach((loopItem) => {
             const target = loopItem.target();
 
+            
             if (slideIndex === loopItem.index && target !== 0) {
               const sign = Math.sign(target);
 

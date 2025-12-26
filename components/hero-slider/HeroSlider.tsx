@@ -7,21 +7,32 @@ import Image from "next/image";
 import React, { useCallback, useEffect, useRef } from "react";
 import styles from "./hero-slider.module.css";
 
-const TWEEN_FACTOR_BASE = 0.2;
+const TWEEN_FACTOR_BASE = 0.90;
 
-const BlackFridayCard: React.FC = () => {
+type BlackFridayCardProps = {
+  src: string
+  alt?: string
+}
+
+const BlackFridayCard: React.FC<BlackFridayCardProps> = ({ src, alt = "Black Friday" }) => {
   return (
     <div className="relative w-full h-full">
       <Image
-        src="/images/eiffel.png" // put image in /public folder
-        alt="Paris"
+        src={src}
+        alt={alt}
         fill
         priority
         className="object-contain w-full h-full"
       />
     </div>
-  );
-};
+  )
+}
+const images = [
+  '/images/hero1.png',
+  '/images/hero2.png',
+  '/images/hero3.png',
+  '/images/hero4.png'
+]
 
 const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
@@ -107,10 +118,10 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ className }) => {
     <section className={styles.embla + ` ${className}`}>
       <div ref={emblaRef} className={styles.embla__viewport}>
         <div className={styles.embla__container}>
-          {slides.map((index) => (
+          {images.map((img,index) => (
             <div className={styles.embla__slide} key={index}>
               <div className="embla__slide__number h-full">
-                <BlackFridayCard />
+                 <BlackFridayCard key={index} src={img}/>
               </div>
             </div>
           ))}

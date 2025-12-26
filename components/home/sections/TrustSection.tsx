@@ -99,6 +99,15 @@ export default function TrustSection() {
     },
     [emblaApi]
   );
+useEffect(() => {
+  if (!emblaApi) return;
+
+  const autoplay = setInterval(() => {
+    emblaApi.scrollNext();
+  }, 3000); // speed (ms)
+
+  return () => clearInterval(autoplay);
+}, [emblaApi]);
 
   const onInit = useCallback((emblaApi: EmblaCarouselType) => {
     setScrollSnaps(emblaApi.scrollSnapList());

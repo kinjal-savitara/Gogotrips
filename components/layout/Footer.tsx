@@ -177,9 +177,9 @@ import { CustomIcon } from "../ui/custom-icon";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white relative overflow-hidden z-0">
+    <footer className="bg-primary text-white relative overflow-hidden z-0 p-4">
       <div className="absolute inset-0 bg-no-repeat bg-[url('/images/footer-map-bg.png')] bg-cover bg-center -z-10"></div>
-      <div className="relative container-inner pt-10.5 pb-19 grid grid-cols-1 md:grid-cols-3 gap-10 z-10">
+      <div className="relative container-inner pt-10.5  grid grid-cols-1 md:grid-cols-3 gap-10 z-10">
         {/* Left Section */}
         <div className="max-w-80 w-full">
           <Image
@@ -194,7 +194,7 @@ export default function Footer() {
           <p className="text-sm font-light mb-3 leading-relaxed">
             Your journey matters, and so does who books it for you.
           </p>
-          <p className="text-sm mb-13 font-light leading-relaxed">
+          <p className="text-sm mb-3 font-light leading-relaxed">
             Unpublished fares, real humans, and priority support… that’s the GoGo Trips advantage.
           </p>
           {/* <div className="flex items-center gap-1.5 text-gray-200">
@@ -273,7 +273,7 @@ export default function Footer() {
         </div>
 
         {/* Right Section */}
-        <div>
+        <div className="">
           <h3 className="font-bold text-lg mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm ">
             <li>

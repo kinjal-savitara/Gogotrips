@@ -33,7 +33,7 @@ export default function HeroSection() {
         {/* Black overlay */}
         <div className="absolute inset-0 bg-black/38" />
       </motion.div>
-      <div className="lg:absolute top-0 bottom-0 flex items-end z-20 w-100 sm:w-125 xl:w-150 right-0 ml-auto max-lg:mt-30">
+      <div className="lg:absolute top-0 bottom-0 flex items-center z-20 w-100 sm:w-125 xl:w-150 right-0 ml-auto max-lg:mt-30">
         <HeroSlider className="w-full h-[282px] sm:h-[426px] xl:h-125 max-sm:ml-6!" />
       </div>
       <div className="flex flex-col h-full ">
