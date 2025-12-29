@@ -6,8 +6,9 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import React, { useCallback, useEffect, useRef } from "react";
 import styles from "./hero-slider.module.css";
+import { Button } from "../ui/button";
 
-const TWEEN_FACTOR_BASE = 0.04;
+const TWEEN_FACTOR_BASE = 0.5;
 
 type BlackFridayCardProps = {
   src: string
@@ -16,15 +17,18 @@ type BlackFridayCardProps = {
 
 const BlackFridayCard: React.FC<BlackFridayCardProps> = ({ src, alt = "Black Friday" }) => {
   return (
-    <div className="relative w-full h-full">
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        priority
-        className="object-contain w-full h-full"
-      />
-    </div>
+   <div className="relative w-full h-full">
+  <Image
+    src={src}
+    alt={alt}
+    fill
+    priority
+    className="object-contain"
+  />
+  
+  <Button data-slot="button" className="absolute bottom-4 left-[45%] -translate-x-1/2 inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer font-medium rounded-standard transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0  outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-project-white border border-project-white text-primary shadow-[0px_4px_6.9px_-2px_#E22371,0px_4px_8.9px_0px_#254165CC_inset] h-10 has-[&gt;svg]:px-3 px-4 py-3 text-xl" type="submit">Quote Now</Button>
+</div>
+
   )
 }
 const images = [
@@ -42,10 +46,10 @@ interface HeroSliderProps {
 }
 
 const HeroSlider: React.FC<HeroSliderProps> = ({ className }) => {
-  const options: EmblaOptionsType = { align: "start", loop: true };
+  const options: EmblaOptionsType = { align: "center", loop: true };
   const SLIDE_COUNT = 5;
   const slides = Array.from(Array(SLIDE_COUNT).keys());
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay({ playOnInit: true })]);
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay({ playOnInit: true, delay: 5000 })]);
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
 

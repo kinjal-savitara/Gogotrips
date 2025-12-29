@@ -52,18 +52,21 @@ export function DateRangePicker({
       )}
     >
       {/* Departure Date */}
-      <CalendarIcon className="text-white ml-2 h-4" />
       <Popover
         open={openType === "departure"}
         onOpenChange={(open) => setOpenType(open ? "departure" : null)}
       >
+
         <PopoverTrigger asChild>
+          
           <button
             className={cn(
-              "text-sm px-2 text-left flex-1 py-1 truncate hover:bg-primary/30 text-white transition-colors rounded-standard h-full ",
+              "cursor-pointer text-sm px-2 text-left flex-1 py-1 truncate hover:bg-primary/30 text-white transition-colors rounded-standard h-full flex flex-row items-center",
               !departure && "text-project-white font-light"
             )}
           >
+            <CalendarIcon className="text-white ml-2 h-4 mr-2" />
+
             {departure ? format(parseISO(departure), "PP") : "Departure"}
           </button>
         </PopoverTrigger>
@@ -87,7 +90,6 @@ export function DateRangePicker({
       <span className="text-white/70 mr-5">-</span>
 
       {/* Return Date */}
-      <CalendarIcon className="text-white w-4 h-4" />
       <Popover
         open={openType === "return"}
         onOpenChange={(open) => setOpenType(open ? "return" : null)}
@@ -96,10 +98,12 @@ export function DateRangePicker({
           
           <button
             className={cn(
-              "text-sm px-3 text-left flex-1 py-1 truncate hover:bg-primary/30 text-white rounded-standard transition-colors h-full",
+              "cursor-pointer text-sm px-3 text-left flex-1 py-1 truncate hover:bg-primary/30 text-white rounded-standard transition-colors h-full flex flex-row items-center",
               !returnDate && "text-project-white font-light"
             )}
           >
+            <CalendarIcon className="text-white w-4 h-4 mr-2" />
+
             {returnDate ? format(parseISO(returnDate), "PP") : "Return"}
           </button>
         </PopoverTrigger>

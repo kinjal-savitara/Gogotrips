@@ -83,7 +83,7 @@ export default function QuoteForm() {
 
   const typeOptions = [
     { value: "oneway", label: "One Way" },
-    { value: "return", label: "Return" },
+    { value: "return", label: "Roundtrip" },
     // { value: "multi", label: "Multi-City" },
   ];
   const countryOptions = [

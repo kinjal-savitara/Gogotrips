@@ -179,7 +179,7 @@ export default function Footer() {
   return (
     <footer className="bg-primary text-white relative overflow-hidden z-0 p-4">
       <div className="absolute inset-0 bg-no-repeat bg-[url('/images/footer-map-bg.png')] bg-cover bg-center -z-10"></div>
-      <div className="relative container-inner pt-10.5  grid grid-cols-1 md:grid-cols-3 gap-10 z-10">
+      <div className="relative container-inner pt-10.5  grid grid-cols-1 md:grid-cols-3 gap-4 z-10">
         {/* Left Section */}
         <div className="max-w-80 w-full">
           <Image

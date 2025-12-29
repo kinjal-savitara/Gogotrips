@@ -1,25 +1,38 @@
 .embla {
   width: 100%;
   margin: auto;
-  --slide-spacing: 0;
-  --slide-size: 70%;
-
 }
+
 .embla__viewport {
   overflow: hidden;
+  width: 100%;
   height: 100%;
 }
+
 .embla__container {
-  display: flex;
-  touch-action: pan-y pinch-zoom;
-  margin-left: calc(var(--slide-spacing) * -1);
+  display: block;
+  /* remove flex */
+  white-space: nowrap;
+  /* keep slides in one line */
   height: 100%;
 }
+
 .embla__slide {
-  transform: translate3d(0, 0, 0);
-  flex: 0 0 var(--slide-size);
-  min-width: 0;
-  padding-left: var(--slide-spacing);
+  display: inline-block;
+  /* slides sit in a row */
+  width: 100%;
+  /* only one slide visible */
+  text-align: center;
+  /* center the image */
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
   height: 100%;
-  
+}
+
+.embla__slide img {
+  max-width: 89%;
+  /* image smaller than slide width, optional */
+  max-height: 100%;
+  display: inline-block;
 }
