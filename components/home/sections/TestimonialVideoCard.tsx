@@ -1,10 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { MapPin, Maximize2, MoreHorizontal, Pause, Play, Volume2, VolumeX } from "lucide-react";
+import { MapPin, MoreHorizontal, Pause, Play, Volume2, VolumeX } from "lucide-react";
 import { useRef, useState } from "react";
 
 function TestimonialVideoCard({
-  data,
+  data, isVideoPlaying, setIsVideoPlaying, autoplayRef
 }: {
   data: {
     id: number;
@@ -41,6 +41,7 @@ function TestimonialVideoCard({
         muted={muted}
         //   poster={thumbnail}
         className="w-full h-full object-fill"
+        
       />
 
       {/* TOP RIGHT CONTROLS */}
@@ -55,19 +56,29 @@ function TestimonialVideoCard({
         </Button>
 
         {/* Fullscreen */}
-        <Button
+        {/* <Button
           variant={"blur"}
           onClick={() => videoRef.current?.requestFullscreen()}
           className="p-0! size-5 sm:size-7"
         >
           <Maximize2 className="size-3 sm:size-4" />
-        </Button>
+        </Button> */}
         {/* Three Dots */}
         <Button variant={"blur"} className="p-0! size-5 sm:size-7">
           <MoreHorizontal className="size-3 sm:size-4" />
         </Button>
       </div>
-
+ <Button
+            variant={"blur"}
+            onClick={togglePlay}
+            className="p-0! size-8 sm:size-12 rounded-[20px]! border-2 border-white flex items-center justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 "
+          >
+            {isPlaying ? (
+              <Pause className="size-4 sm:size-5" />
+            ) : (
+              <Play className="size-4 sm:size-5" />
+            )}
+          </Button>
       {/* BOTTOM LEFT - NAME + LOCATION */}
       <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-0% to-100% from-black/60 to-transparent h-1/2">
         <div className="absolute bottom-5 left-4 text-white z-10">
@@ -78,18 +89,18 @@ function TestimonialVideoCard({
         </div>
 
         {/* PLAY BUTTON OVERLAY */}
-        <div className="absolute bottom-4 right-4 z-10">
-          <Button
+        <div className="absolute bottom-4 right-4 z-10 ">
+          {/* <Button
             variant={"blur"}
             onClick={togglePlay}
-            className="p-0! size-8 sm:size-12 rounded-[20px]!"
+            className="p-0! size-8 sm:size-12 rounded-[20px]! "
           >
             {isPlaying ? (
               <Pause className="size-4 sm:size-5" />
             ) : (
               <Play className="size-4 sm:size-5" />
             )}
-          </Button>
+          </Button> */}
           {/* <button
           onClick={togglePlay}
           className="bg-[rgba(0,0,0,0.45)] backdrop-blur-md p-2.5 rounded-full text-white hover:bg-[rgba(0,0,0,0.65)] transition"

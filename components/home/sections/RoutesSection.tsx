@@ -44,6 +44,11 @@ const routes = [
     title: "USA To Amritsar",
     image: "/images/amritsar.png",
   },
+   {
+    id: 9,
+    title: "USA To Kochi",
+    image: "/images/kochi.png",
+  },
 ];
 
 export default function RoutesSection() {
@@ -91,7 +96,7 @@ export default function RoutesSection() {
       {/* CTA Button */}
       <div className="text-center">
         <Button className="text-[15px] md:text-xl"
-          onClick={() => window.open("https://wa.me/1234567890", "_blank")}>Get Your Quote Instant</Button>
+          onClick={() => window.open("https://wa.me/1234567890", "_blank")}>Call To Book</Button>
       </div>
     </section>
   );

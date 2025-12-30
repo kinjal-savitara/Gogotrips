@@ -28,7 +28,7 @@ const slides = [
     description:
       "We specialize in long-haul routes with exclusive, unpublished round-trip deals you won’t find online.",
     image: "/images/manhattan.jpg",
-    price: "$999*",
+    
   },
   {
     id: 4,
@@ -104,7 +104,7 @@ useEffect(() => {
 
   const autoplay = setInterval(() => {
     emblaApi.scrollNext();
-  }, 3000); // speed (ms)
+  }, 5000); 
 
   return () => clearInterval(autoplay);
 }, [emblaApi]);

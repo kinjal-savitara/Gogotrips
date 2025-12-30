@@ -69,7 +69,7 @@ useEffect(() => {
 
   const autoplay = setInterval(() => {
     emblaApi.scrollNext();
-  }, 4000); 
+  }, 5000); 
 
   return () => clearInterval(autoplay);
 }, [emblaApi]);
