@@ -177,26 +177,28 @@ import { CustomIcon } from "../ui/custom-icon";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white relative overflow-hidden z-0 p-4">
+    <footer className="bg-primary text-white relative overflow-hidden z-0 p-4 text-[14px]">
       <div className="absolute inset-0 bg-no-repeat bg-[url('/images/footer-map-bg.png')] bg-cover bg-center -z-10"></div>
-      <div className="relative container-inner pt-10.5  grid grid-cols-1 md:grid-cols-3 gap-4 z-10">
+      <div className="relative max-w-6xl mx-auto grid gap-6 grid-cols-2 md:grid-cols-3 pt-10">
         {/* Left Section */}
-        <div className="max-w-80 w-full">
+        <div className="">
           <Image
             src="/logo-white.png"
             alt="GoGo Trips Logo"
-            width={120}
+            width={130}
             height={68}
-            className="object-contain"
+            className="object-contain sm:h-60 -ml-4"
           />
-          <h3 className="font-semibold mt-4 mb-3">Fly Smarter. Travel Better.</h3>
+          <div className="">
+          <h3 className="font-semibold mt-4 mb-3 md:text-[10px]">Fly Smarter. Travel Better.</h3>
 
-          <p className="text-sm font-light mb-3 leading-relaxed">
+          <p className="font-light mb-3 leading-relaxed md:text-[10px]">
             Your journey matters, and so does who books it for you.
           </p>
-          <p className="text-sm mb-3 font-light leading-relaxed">
+          <p className="mb-3 font-light leading-relaxed md:text-[10px]">
             Unpublished fares, real humans, and priority support… that’s the GoGo Trips advantage.
           </p>
+           </div>
           {/* <div className="flex items-center gap-1.5 text-gray-200">
             <Link
               href="#"
@@ -237,7 +239,8 @@ export default function Footer() {
         </div>
 
         {/* Middle Section */}
-        <div className="max-w-56 w-full">
+        <div className="col-span-1 md:col-span-1">
+        <div className="">
           <h3 className="font-bold text-lg mb-4">Contact Info</h3>
           <p className="text-sm mb-4 leading-relaxed">
             Address: 8 The Green, Suite B, Dover, Delaware - 19901
@@ -274,7 +277,7 @@ export default function Footer() {
 
         {/* Right Section */}
         <div className="">
-          <h3 className="font-bold text-lg mb-4">Quick Links</h3>
+          <h3 className="font-bold text-lg mb-4 mt-3">Quick Links</h3>
           <ul className="space-y-2 text-sm ">
             <li>
               <Link href="#">Terms And Conditions</Link>
@@ -284,11 +287,12 @@ export default function Footer() {
             </li>
           </ul>
         </div>
+        </div>
       </div>
 
-      {/* <div className="border-t border-white/10 mt-8 pt-6 text-center text-xs text-gray-400">
+      <div className="border-t border-white/10 mt-8 pt-6 text-center text-xs text-gray-400">
         © {new Date().getFullYear()} GoGo Trips. All Rights Reserved.
-      </div> */}
+      </div>
     </footer>
 
   );

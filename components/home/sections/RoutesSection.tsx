@@ -1,6 +1,9 @@
 "use client";
 
+import { WHATSAPP_URL } from "@/app/constant";
 import { Button } from "@/components/ui/button";
+import { CustomIcon } from "@/components/ui/custom-icon";
+import { Link, PhoneCall } from "lucide-react";
 import Image from "next/image";
 
 const routes = [
@@ -47,7 +50,7 @@ const routes = [
    {
     id: 9,
     title: "USA To Kochi",
-    image: "/images/kochi.png",
+    image: "/images/kochi-1.jpg",
   },
 ];
 
@@ -96,7 +99,10 @@ export default function RoutesSection() {
       {/* CTA Button */}
       <div className="text-center">
         <Button className="text-[15px] md:text-xl"
-          onClick={() => window.open("https://wa.me/1234567890", "_blank")}>Call To Book</Button>
+          onClick={() => window.open("https://wa.me/1234567890", "_blank")}> 
+            <PhoneCall name="Phonecall" className="size-4 xs:size-5 sm:size-7" />
+          Call To Book
+          </Button>
       </div>
     </section>
   );

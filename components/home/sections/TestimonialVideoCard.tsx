@@ -4,13 +4,14 @@ import { MapPin, MoreHorizontal, Pause, Play, Volume2, VolumeX } from "lucide-re
 import { useRef, useState } from "react";
 
 function TestimonialVideoCard({
-  data, isVideoPlaying, setIsVideoPlaying, autoplayRef
+  data,
 }: {
   data: {
     id: number;
     name: string;
     location: string;
     video: string;
+    desc: string;
   };
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -80,15 +81,19 @@ function TestimonialVideoCard({
             )}
           </Button>
       {/* BOTTOM LEFT - NAME + LOCATION */}
-      <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-0% to-100% from-black/60 to-transparent h-1/2">
-        <div className="absolute bottom-5 left-4 text-white z-10">
+      <div className="absolute bottom-13 left-0 right-0 bg-linear-to-t from-0% to-100% from-black/60 to-transparent h-1/2">
+        <div className="absolute bottom-3 left-4 text-white z-10">
           <p className="text-[15px] sm:text-lg font-medium">{data?.name}</p>
           <p className="text-[10px] sm:text-[15px] font-light flex items-center gap-1">
             <MapPin size={16} /> {data?.location}
           </p>
+          <p className=" text-yellow-400">
+  ★★★★☆
+</p>
         </div>
 
-        {/* PLAY BUTTON OVERLAY */}
+
+        {/* PLAY BUTTON OVERLAY
         <div className="absolute bottom-4 right-4 z-10 ">
           {/* <Button
             variant={"blur"}
@@ -106,9 +111,15 @@ function TestimonialVideoCard({
           className="bg-[rgba(0,0,0,0.45)] backdrop-blur-md p-2.5 rounded-full text-white hover:bg-[rgba(0,0,0,0.65)] transition"
         >
           {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-        </button> */}
-        </div>
+        </button>   </div>  */}
+         <div className="absolute -bottom-16  z-10 p-2">
+       <p className="text-sm text-white font-light mb-3 leading-relaxed line-clamp-2">
+{data?.desc}
+</p>
+
+</div>
       </div>
+    
     </div>
   );
 }

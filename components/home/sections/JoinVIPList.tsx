@@ -33,7 +33,8 @@ export default function JoinVIPList() {
   return (
     <section className="w-full py-6 md:py-12.5 max-w-[1200px] mx-auto px-6">
       {/* Heading */}
-      <div className="bg-blue-section shadow-[0px_4px_4px_0px_#00000040] rounded-lg grid md:grid-cols-2 grid-cols-1 gap-5">
+      {/* <div className="bg-blue-section shadow-[0px_4px_4px_0px_#00000040] rounded-lg grid md:grid-cols-2 grid-cols-1 gap-5"> */}
+      <div className="bg-blue-section shadow-[0px_4px_4px_0px_#00000040] rounded-lg grid  grid-cols-1 gap-5">
         <div className="md:px-7 md:py-10 py-7 px-3">
           <h2 className="text-[15px] md:text-base lg:text-xl font-bold text-primary mb-2">
             YOUR TICKET TO HOME, HANDLED WITH CARE
@@ -56,11 +57,12 @@ export default function JoinVIPList() {
             onSubmit={handleSubmit(onSubmit)}
             className="text-white w-full space-y-4 grid grid-cols-1 md:grid-cols-2 md:gap-2 max-md:max-w-80"
           >
-            <div className="space-y-1">
+           
+            <div className="space-y-1 ">
               <Input
                 placeholder="Enter your name"
                 {...register("name")}
-                className="bg-transparent border border-primary backdrop-blur-xs placeholder:font-normal placeholder:text-primary text-primary max-md:placeholder:text-sm max-md:text-sm focus-visible:border-primary focus-visible:ring-primary/50 focus-visible:ring-2"
+                className="ml-2.5 bg-transparent border border-primary backdrop-blur-xs placeholder:font-normal placeholder:text-primary text-primary max-md:placeholder:text-sm max-md:text-sm focus-visible:border-primary focus-visible:ring-primary/50 focus-visible:ring-2"
               />
               {errors.name && <p className="text-red-400 text-xs">{errors.name?.message || ""}</p>}
             </div>
@@ -69,7 +71,7 @@ export default function JoinVIPList() {
                 placeholder="Email Address"
                 type="email"
                 {...register("email")}
-                className="bg-transparent border border-primary backdrop-blur-xs placeholder:font-normal placeholder:text-primary text-primary focus-visible:border-primary max-md:placeholder:text-sm max-md:text-sm focus-visible:ring-primary/50 focus-visible:ring-2"
+                className="ml-2.5 bg-transparent border border-primary backdrop-blur-xs placeholder:font-normal placeholder:text-primary text-primary focus-visible:border-primary max-md:placeholder:text-sm max-md:text-sm focus-visible:ring-primary/50 focus-visible:ring-2"
               />
               {errors.email && (
                 <p className="text-red-400 text-xs">{errors.email?.message || ""}</p>
@@ -79,11 +81,12 @@ export default function JoinVIPList() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 w-max text-[15px] md:text-xl"
+              className="ml-2.5 px-4 py-2 w-full text-[15px] md:text-xl"
               // className="bg-white text-black font-semibold rounded-full px-8 py-2 hover:bg-gray-100"
             >
               Join the VIP List to Early Access
             </Button>
+        
           </form>
         </div>
         <div className="hidden md:flex items-end justify-end relative">

@@ -13,18 +13,21 @@ const slides = [
     name: "Khushboo",
     location: "New York, USA",
     video: "/videos/khusboo.mp4",
+    desc : "We booked a flight from Gogo Trips with the help of Disha. And it was amazing. And the Disha is doing great job. I really like the service. We will definitely go again with Gogo Trips. Thank you so much.",
   },
   {
     id: 2,
     name: "Dhruvil",
     location: "Birmingham, UK",
     video: "/videos/dhruvil.mp4",
+    desc : "GoGo Trips made my Ahmedabad–Birmingham flight booking simple, transparent, and within budget. Henish Patel’s support and updates were excellent. I highly recommend them!",
   },
   {
     id: 3,
     name: "Tom Richards",
     location: "Crystal Lake, Illinois, USA",
     video: "/videos/tom.mp4",
+    desc: "I’ve used GoGo Trips several times for flights between Dublin, Florida, New York, Chicago, and California. They’ve saved me well over $1,000 with unbeatable service and prices. I highly recommend them — if they were on Trustpilot, I’d give them a 12 out of 10!",
   },
 ];
 const TWEEN_FACTOR_BASE = 0.3;
