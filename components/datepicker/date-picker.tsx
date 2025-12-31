@@ -19,7 +19,7 @@ export function DatePicker() {
           className="text-white w-full justify-start px-3 py-1 text-left font-normal bg-white/25 h-10 hover:text-white hover:bg-white/30  "
         >
           <CalendarIcon />
-          {date ? format(date, "PPP") : <span className="">Pick a date</span>}
+          {date ? format(date, "PPP") : <span className="">Departure date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">

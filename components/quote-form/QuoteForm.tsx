@@ -8,8 +8,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import CustomSelect from "../custom-select/CustomSelect";
-import { DateRangePicker } from "../datepicker/DateRangePicker";
 import { DatePicker } from "../datepicker/date-picker";
+import RedioGroup from "../redio group/RedioGroup";
+import Multicity from "./Multicity";
+import { DateRangePicker } from "../datepicker/DateRangePicker";
 
 type QuoteFormValues = {
   bookingType: string;
@@ -72,7 +74,7 @@ export default function QuoteForm() {
       countryCode: "+1",
     },
   });
-
+ const bookingType = watch('bookingType');
   console.log(errors)
   const onSubmit = (data: QuoteFormValues) => {
     // console.log({ ...data, tripType });
@@ -80,11 +82,17 @@ export default function QuoteForm() {
     console.log(data);
     reset();
   };
+const renderContent = () => {
+  if (bookingType === "oneway") return <><DatePicker /></>;
 
+  if (bookingType === "return") return <><DateRangePicker /></>;
+  if (bookingType === "multi") return <Multicity />;
+  return null;
+};
   const typeOptions = [
     { value: "oneway", label: "One Way" },
     { value: "return", label: "Roundtrip" },
-    // { value: "multi", label: "Multi-City" },
+    { value: "multi", label: "Multi-City" },
   ];
   const countryOptions = [
     { value: "+1", label: "+1" },
@@ -102,25 +110,36 @@ export default function QuoteForm() {
           name="bookingType"
           control={control}
           render={({ field }) => (
-            <CustomSelect
-              className="min-w-[120px] col-span-full w-max"
-              {...field}
-              options={typeOptions}
-              value={typeOptions.find((i) => i.value === field.value)}
+            // <CustomSelect
+            //   className="min-w-[120px] col-span-full w-max"
+            //   {...field}
+            //   options={typeOptions}
+            //   value={typeOptions.find((i) => i.value === field.value)}
              
+            // />
+            <RedioGroup
+              name="bookingType"
+              value={field.value}
+              onChange={field.onChange}
+              options={typeOptions}
+              
             />
           )}
         />
-        
-        <Controller
+        <Controller  name="bookingType"
+              control={control}
+              render={({ field, fieldState }) => renderContent()}
+        />
+        {/* <Controller
           name="departure"
           control={control}
           render={({ field, fieldState }) => (
             <Controller
               name="returnDate"
               control={control}
-              render={({ field: returnField }) => (watch('bookingType') as any)?.value === 'return' ? (
-                <div className="space-y-1 w-full">
+              render={({ field:  returnField, fieldState }) => bookingType === 'return' ? 
+              (
+                <div className="space-y-1">
                   <DateRangePicker
                     departure={field.value}
                     returnDate={returnField.value}
@@ -135,26 +154,31 @@ export default function QuoteForm() {
                     </p>
                   )}
                 </div>)
-                :(
-                  <div className="space-y-1 w-full">
+               :(
+                  <div className="space-y-1">
                     <DatePicker/>
                     </div>
-              )}
+              ) 
+            }
             />
           )}
-        />
+        /> */}
 
-        <div className="space-y-1">
+      {bookingType !== 'multi' && <div className="w-full flex flex-row gap-4">
+         {/* Departure place */}
+        <div className="space-y-1 w-1/2">
           <Input
-            placeholder="Full Name"
-            {...register("fullName")}
-            className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white"
-          />
-          {errors.fullName && (
-            <p className="text-red-400 text-xs">{errors.fullName?.message || ""}</p>
+            placeholder="Departure place"
+            {...register("departurePlace")}
+            
+            className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white "
+          />{" "}
+          {errors.departurePlace && (
+            <p className="text-red-400 text-xs">{errors.departurePlace?.message || ""}</p>
           )}
         </div>
-        <div className="space-y-1">
+        {/* Arrival place */}
+        <div className="space-y-1 w-1/2">
           <Input
             placeholder="Arrival place"
             {...register("arrival")}
@@ -164,17 +188,20 @@ export default function QuoteForm() {
             <p className="text-red-400 text-xs">{errors.arrival?.message || ""}</p>
           )}
         </div>
-        <div className="space-y-1">
+       </div>}
+  {bookingType !== 'multi' && <div className="w-full flex flex-row gap-4">
+       {/* Name  input */}
+        <div className="space-y-1 w-1/2">
           <Input
-            placeholder="Departure place"
-            {...register("departurePlace")}
-            className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white "
-          />{" "}
-          {errors.departurePlace && (
-            <p className="text-red-400 text-xs">{errors.departurePlace?.message || ""}</p>
+            placeholder="Full Name"
+            {...register("fullName")}
+            className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white"
+          />
+          {errors.fullName && (
+            <p className="text-red-400 text-xs">{errors.fullName?.message || ""}</p>
           )}
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1 w-1/2">
           <Input
             placeholder="Number Of Passengers"
             type="number"
@@ -185,7 +212,9 @@ export default function QuoteForm() {
             <p className="text-red-400 text-xs">{errors.passengers?.message || ""}</p>
           )}
         </div>
-        <div className="space-y-1">
+        </div>}
+     {bookingType !== 'multi' && <div className="w-full flex flex-row gap-4">
+        <div className="space-y-1 w-1/2">
           <Input
             placeholder="Email Address"
             type="email"
@@ -194,7 +223,7 @@ export default function QuoteForm() {
           />
           {errors.email && <p className="text-red-400 text-xs">{errors.email?.message || ""}</p>}
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1 w-1/2">
           <div className="flex gap-2 md:col-span-1 items-start relative">
             <Controller
               name="countryCode"
@@ -207,14 +236,14 @@ export default function QuoteForm() {
                   onChange={(e: any) => {
                     field.onChange(e?.value || "+1");
                   }}
-                  className="focus-visible:ring-white/50 w-22 focus-visible:ring-2 relative z-10"
+                  className="focus-visible:ring-white/50 w-19 focus-visible:ring-2 relative z-10"
                 />
               )}
             />
             <Input
-              placeholder="Enter phone number"
+              placeholder="Mobile No."
               {...register("phone")}
-              className="absolute z-0 pl-24 bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white  flex-1"
+              className="absolute z-0 pl-20 bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white  flex-1"
             />
           </div>
           {errors.countryCode && (
@@ -222,15 +251,16 @@ export default function QuoteForm() {
           )}
           {errors.phone && <p className="text-red-400 text-xs">{errors.phone?.message || ""}</p>}
         </div>
-        <Textarea
+        </div>}
+      {bookingType !== 'multi' && <Textarea
           placeholder="Message"
           {...register("message")}
           className="md:col-span-1 bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white"
-        />
+        />}
       </div>
 
       {/* Submit */}
-      <div className="pt-4 flex flex-col items-center">
+     {bookingType !== 'multi' && <div className="pt-4 flex flex-col items-center">
         <Button
           type="submit"
           variant="secondary"
@@ -250,6 +280,8 @@ export default function QuoteForm() {
           24/7 Support | Zero IVR Wait
         </p>
       </div>
+    }
+    {/* <Multicity/> */}
     </form>
   );
 }

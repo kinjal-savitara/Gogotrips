@@ -47,8 +47,8 @@ export default function HeroSection() {
           <HeroSlider className="w-full h-[282px] sm:h-[426px] xl:h-125 max-sm:ml-6!" />
         </div>
         
-        <div className="flex flex-col h-full ">
-          <div className="relative z-10 flex-1 container-inner justify-center pt-5 md:pt-10 lg:pt-38">
+        <div className="flex flex-col h-full">
+          <div className="relative z-10 flex-1 container-inner justify-center pt-5 md:pt-10 lg:pt-38  mt-10 lg:mt-0 mb-10 lg:mb-0">
             {/* <div className="mb-10 w-full max-w-[calc(100%-500px)] max-lg:hidden">
             <h1 className="text-3xl font-bold leading-tight text-white">
               USA-India Flight Deals For Any City, Any Date!
@@ -65,7 +65,7 @@ export default function HeroSection() {
       </div>
       <div className="
   relative
-  mt-10 mb-0  /* mobile default */
+  mt-11 mb-0  /* mobile default */
   md:mt-20 md:mb-20  /* tablet+ */
   py-2
   bg-project-white/57

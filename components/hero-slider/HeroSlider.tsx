@@ -7,6 +7,7 @@ import Image from "next/image";
 import React, { useCallback, useEffect, useRef } from "react";
 import styles from "./hero-slider.module.css";
 import { Button } from "../ui/button";
+import { PhoneCall } from "lucide-react";
 
 const TWEEN_FACTOR_BASE = 0.5;
 
@@ -26,7 +27,8 @@ const BlackFridayCard: React.FC<BlackFridayCardProps> = ({ src, alt = "Black Fri
     className="object-contain"
   />
   
-  <Button data-slot="button" className="absolute bottom-4 left-[45%] -translate-x-1/2 inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer font-medium rounded-standard transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0  outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-project-white border border-project-white text-primary shadow-[0px_4px_6.9px_-2px_#E22371,0px_4px_8.9px_0px_#254165CC_inset] h-10 has-[&gt;svg]:px-3 px-4 py-3 text-xl" type="submit">Quote Now</Button>
+  <Button data-slot="button" className="absolute bottom-4 left-[45%] -translate-x-1/2 inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer font-medium rounded-standard transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0  outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-project-white border border-project-white text-primary shadow-[0px_4px_6.9px_-2px_#E22371,0px_4px_8.9px_0px_#254165CC_inset] h-10 has-[&gt;svg]:px-3 px-4 py-3 text-xl" type="submit">
+   <PhoneCall name="Phonecall" className="size-4 xs:size-5 sm:size-7" />Quote Now</Button>
 </div>
 
   )

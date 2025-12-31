@@ -67,14 +67,30 @@ export default function Testimonials() {
     },
     [emblaApi]
   );
+// useEffect(() => {
+//   if (!emblaApi) return;
+
+//   const autoplay = setInterval(() => {
+//     emblaApi.scrollNext();
+//   }, 5000); 
+
+//   return () => clearInterval(autoplay);
+// }, [emblaApi]);
 useEffect(() => {
   if (!emblaApi) return;
 
+  const video = document.querySelector('video');
+
+  video?.pause();
+
   const autoplay = setInterval(() => {
     emblaApi.scrollNext();
-  }, 5000); 
+  }, 5000);
 
-  return () => clearInterval(autoplay);
+  return () => {
+    clearInterval(autoplay);
+    video?.play();
+  };
 }, [emblaApi]);
 
   const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
