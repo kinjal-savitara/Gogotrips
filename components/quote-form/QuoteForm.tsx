@@ -9,9 +9,9 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import CustomSelect from "../custom-select/CustomSelect";
 import { DatePicker } from "../datepicker/date-picker";
+import { DateRangePicker } from "../datepicker/DateRangePicker";
 import RedioGroup from "../redio group/RedioGroup";
 import Multicity from "./Multicity";
-import { DateRangePicker } from "../datepicker/DateRangePicker";
 
 type QuoteFormValues = {
   bookingType: string;
@@ -189,7 +189,7 @@ const renderContent = () => {
           )}
         </div>
        </div>}
-  {bookingType !== 'multi' && <div className="w-full flex flex-row gap-4">
+  <div className="w-full flex flex-row gap-4">
        {/* Name  input */}
         <div className="space-y-1 w-1/2">
           <Input
@@ -203,7 +203,7 @@ const renderContent = () => {
         </div>
         <div className="space-y-1 w-1/2">
           <Input
-            placeholder="Number Of Passengers"
+            placeholder="No. Of Passengers"
             type="number"
             {...register("passengers")}
             className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white "
@@ -212,8 +212,8 @@ const renderContent = () => {
             <p className="text-red-400 text-xs">{errors.passengers?.message || ""}</p>
           )}
         </div>
-        </div>}
-     {bookingType !== 'multi' && <div className="w-full flex flex-row gap-4">
+        </div>
+    <div className="w-full flex flex-row gap-4">
         <div className="space-y-1 w-1/2">
           <Input
             placeholder="Email Address"
@@ -251,12 +251,12 @@ const renderContent = () => {
           )}
           {errors.phone && <p className="text-red-400 text-xs">{errors.phone?.message || ""}</p>}
         </div>
-        </div>}
-      {bookingType !== 'multi' && <Textarea
+        </div>
+      <Textarea
           placeholder="Message"
           {...register("message")}
           className="md:col-span-1 bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white"
-        />}
+        />
       </div>
 
       {/* Submit */}
@@ -281,7 +281,7 @@ const renderContent = () => {
         </p>
       </div>
     }
-    {/* <Multicity/> */}
+   
     </form>
   );
 }

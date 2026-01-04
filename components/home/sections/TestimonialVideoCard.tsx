@@ -3,17 +3,33 @@ import { Button } from "@/components/ui/button";
 import { MapPin, MoreHorizontal, Pause, Play, Volume2, VolumeX } from "lucide-react";
 import { useRef, useState } from "react";
 
-function TestimonialVideoCard({
-  data,
-}: {
-  data: {
-    id: number;
-    name: string;
-    location: string;
-    video: string;
-    desc: string;
-  };
-}) {
+type TestimonialVideoData = {
+  id: number;
+  name: string;
+  location: string;
+  video: string;
+  desc: string;
+};
+
+type Props = {
+  data: TestimonialVideoData;
+  onPlay: () => void;   // Callback to stop carousel
+  onPause: () => void;  // Callback to resume carousel
+};
+
+// function TestimonialVideoCard({
+//   data,
+// }: {
+//   data: {
+//     id: number;
+//     name: string;
+//     location: string;
+//     video: string;
+//     desc: string;
+//   };
+// }) 
+export default function TestimonialVideoCard({ data, onPlay, onPause }: Props) {
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [muted, setMuted] = useState(true);
@@ -42,7 +58,9 @@ function TestimonialVideoCard({
         muted={muted}
         //   poster={thumbnail}
         className="w-full h-full object-fill"
-        
+        onPlay={onPlay}      // triggers carousel stop
+        onPause={onPause}    // triggers carousel resume
+        onEnded={onPause} 
       />
 
       {/* TOP RIGHT CONTROLS */}
@@ -124,4 +142,3 @@ function TestimonialVideoCard({
   );
 }
 
-export default TestimonialVideoCard;

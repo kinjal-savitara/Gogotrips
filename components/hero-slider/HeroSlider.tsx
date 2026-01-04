@@ -1,13 +1,15 @@
 "use client";
 
+import { WHATSAPP_URL } from "@/app/constant";
 import { EmblaCarouselType, EmblaEventType, EmblaOptionsType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useCallback, useEffect, useRef } from "react";
-import styles from "./hero-slider.module.css";
 import { Button } from "../ui/button";
-import { PhoneCall } from "lucide-react";
+import { CustomIcon } from "../ui/custom-icon";
+import styles from "./hero-slider.module.css";
 
 const TWEEN_FACTOR_BASE = 0.5;
 
@@ -26,9 +28,9 @@ const BlackFridayCard: React.FC<BlackFridayCardProps> = ({ src, alt = "Black Fri
     priority
     className="object-contain"
   />
-  
-  <Button data-slot="button" className="absolute bottom-4 left-[45%] -translate-x-1/2 inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer font-medium rounded-standard transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0  outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-project-white border border-project-white text-primary shadow-[0px_4px_6.9px_-2px_#E22371,0px_4px_8.9px_0px_#254165CC_inset] h-10 has-[&gt;svg]:px-3 px-4 py-3 text-xl" type="submit">
-   <PhoneCall name="Phonecall" className="size-4 xs:size-5 sm:size-7" />Quote Now</Button>
+   <Link   href={WHATSAPP_URL}>
+  <Button data-slot="button" className="absolute bottom-4 left-[45%] -translate-x-1/2 inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer font-medium rounded-standard transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0  outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-project-white border border-project-white text-primary shadow-[0px_4px_6.9px_-2px_#E22371,0px_4px_8.9px_0px_#254165CC_inset] h-10 has-[&gt;svg]:px-3 px-4 py-3 text-sm" type="submit">
+  <CustomIcon name="whatsapp" className="size-4 xs:size-5 sm:size-7 text-[#4BAE4F]" />On Whatsapp</Button></Link>
 </div>
 
   )

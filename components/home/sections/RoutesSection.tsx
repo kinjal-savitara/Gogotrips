@@ -1,10 +1,10 @@
 "use client";
 
-import { WHATSAPP_URL } from "@/app/constant";
+import { CALL_URL, WHATSAPP_URL } from "@/app/constant";
 import { Button } from "@/components/ui/button";
-import { CustomIcon } from "@/components/ui/custom-icon";
-import { Link, PhoneCall } from "lucide-react";
+import { PhoneCall } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const routes = [
   {
@@ -85,24 +85,28 @@ export default function RoutesSection() {
             {/* <Button className="absolute text-lg bottom-3 left-0 right-0 mx-5 bg-project-white/5 backdrop-blur-xs border-project-white shadow-none hover:bg-white hover:text-black">
               {item.title}
             </Button> */}
+            <Link   href={WHATSAPP_URL}>
             <Button
               className="absolute text-[8px] sm:text-sm md:text-lg md:bottom-3 left-0 right-0 mx-1.5 md:mx-5 max-md:h-8 bottom-1.5"
               variant={"blur"}
-              onClick={() => window.open("https://wa.me/1234567890", "_blank")}
             >
               {item.title}
             </Button>
+            </Link>
           </div>
         ))}
       </div>
 
       {/* CTA Button */}
       <div className="text-center">
+        <Link  href={CALL_URL}>
         <Button className="text-[15px] md:text-xl"
-          onClick={() => window.open("https://wa.me/1234567890", "_blank")}> 
+         
+          > 
             <PhoneCall name="Phonecall" className="size-4 xs:size-5 sm:size-7" />
           Call To Book
           </Button>
+          </Link>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { EmblaCarouselType, EmblaEventType } from "embla-carousel";
+import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { ComponentPropsWithRef, useCallback, useEffect, useRef, useState } from "react";
 import styles from "../styles/testimonials.module.css";
@@ -53,7 +54,16 @@ const DotButton: React.FC<PropType> = (props) => {
 };
 
 export default function Testimonials() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  // 1️⃣ Autoplay plugin
+  const autoplay = useRef(Autoplay({ delay: 5000, stopOnInteraction: false }));
+
+  // 2️⃣ Embla carousel
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true },
+    [autoplay.current]
+  );
+
+  // const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
 
@@ -67,6 +77,30 @@ export default function Testimonials() {
     },
     [emblaApi]
   );
+
+  // Video play → stop carousel + disable swipe
+  const handleVideoPlay = useCallback(() => {
+    autoplay.current.stop();
+    emblaApi?.reInit({ watchDrag: false });
+  }, [emblaApi]);
+
+  // Video pause/end → resume carousel + enable swipe
+  const handleVideoPause = useCallback(() => {
+    emblaApi?.reInit({ watchDrag: true });
+    autoplay.current.play();
+  }, [emblaApi]);
+
+  // Update selected index
+  const onSelect = useCallback((api: EmblaCarouselType) => {
+    setSelectedIndex(api.selectedScrollSnap());
+  }, []);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect(emblaApi);
+    emblaApi.on("reInit", onSelect).on("select", onSelect);
+  }, [emblaApi, onSelect]);
+
 // useEffect(() => {
 //   if (!emblaApi) return;
 
@@ -93,9 +127,9 @@ useEffect(() => {
   };
 }, [emblaApi]);
 
-  const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, []);
+  // const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
+  //   setSelectedIndex(emblaApi.selectedScrollSnap());
+  // }, []);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -183,7 +217,9 @@ useEffect(() => {
               {doubleSlides.map((i) => (
                 <div className={styles.embla__slide} key={i.id}>
                   <div className="embla__slide__number">
-                    <TestimonialVideoCard data={i} />
+                    <TestimonialVideoCard  data={i}
+              onPlay={handleVideoPlay}     // pass carousel stop callback
+              onPause={handleVideoPause} />
                   </div>
                 </div>
               ))}

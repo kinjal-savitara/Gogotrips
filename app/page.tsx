@@ -5,6 +5,7 @@ import JoinVIPList from "@/components/home/sections/JoinVIPList";
 import RoutesSection from "@/components/home/sections/RoutesSection";
 import Testimonials from "@/components/home/sections/Testimonials";
 import TrustSection from "@/components/home/sections/TrustSection";
+import Modal from "@/components/scroll modal/Modal";
 
 export default function Home() {
   return (
@@ -15,7 +16,9 @@ export default function Home() {
       <TrustSection />
       <Testimonials />
       <FaqSection />
+     <Modal/>
       <JoinVIPList />
+      
       {/* <OurMarkets />
       <OurKeyProducts />
       <BeganSection />

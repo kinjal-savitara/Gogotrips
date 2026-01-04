@@ -42,7 +42,7 @@ export default function JoinVIPList() {
           <p className="text-xs md:text-[15px] font-light text-primary">
             Special fares, genuine guidance, and a team that treats your travel like family.
           </p>
-          <div className="flex flex-wrap gap-2 my-4 md:my-7">
+          <div className="flex flex-wrap gap-2 my-4 md:my-7 sm:gap-1">
             <div className="bg-project-pink px-2 border border-project-white py-1.5 rounded-standard text-[10px] font-medium text-white">
               VIP Price Alerts
             </div>
