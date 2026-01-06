@@ -1,9 +1,11 @@
 "use client";
 
+import { EMAIL_URL } from "@/app/constant";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -34,7 +36,7 @@ export default function JoinVIPList() {
     <section className="w-full py-6 md:py-12.5 max-w-[1200px] mx-auto px-6">
       {/* Heading */}
       {/* <div className="bg-blue-section shadow-[0px_4px_4px_0px_#00000040] rounded-lg grid md:grid-cols-2 grid-cols-1 gap-5"> */}
-      <div className="bg-blue-section shadow-[0px_4px_4px_0px_#00000040] rounded-lg grid  grid-cols-1 gap-5">
+      <div className="bg-blue-section shadow-[0px_4px_4px_0px_#00000040] rounded-lg grid  grid-cols-1 gap-5 md:flex">
         <div className="md:px-7 md:py-10 py-7 px-3">
           <h2 className="text-[15px] md:text-base lg:text-xl font-bold text-primary mb-2">
             YOUR TICKET TO HOME, HANDLED WITH CARE
@@ -55,10 +57,9 @@ export default function JoinVIPList() {
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="text-white w-full space-y-4 grid grid-cols-1 md:grid-cols-2 md:gap-2 max-md:max-w-80"
+            className="text-white w-full space-y-4 grid grid-cols-1 md:grid-cols-2 md:gap-2 max-md:max-w-80 md:flex md:flex-col"
           >
-           
-            <div className="space-y-1 ">
+            <div className="space-y-1">
               <Input
                 placeholder="Enter your name"
                 {...register("name")}
@@ -77,19 +78,19 @@ export default function JoinVIPList() {
                 <p className="text-red-400 text-xs">{errors.email?.message || ""}</p>
               )}
             </div>
-
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="ml-2.5 px-4 py-2 w-full text-[15px] md:text-xl"
-              // className="bg-white text-black font-semibold rounded-full px-8 py-2 hover:bg-gray-100"
-            >
-              Join the VIP List to Early Access
-            </Button>
-        
+            <Link href={EMAIL_URL}>
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="ml-2.5 px-4 py-2 w-full text-[15px] md:text-xl"
+                // className="bg-white text-black font-semibold rounded-full px-8 py-2 hover:bg-gray-100"
+              >
+                Join the VIP List to Early Access
+              </Button>
+            </Link>
           </form>
         </div>
-        <div className="hidden md:flex items-end justify-end relative">
+        <div className="hidden md:flex md:flex-row items-end justify-end relative">
           <div className="h-65 w-75 right-10 lg:h-75 lg:w-85 lg:right-15 bottom-5 bg-secondary rounded-lg absolute -z-10"></div>
           <Image
             src={"/images/vip-img.png"}

@@ -85,7 +85,7 @@ const DotButton: React.FC<PropType> = (props) => {
 };
 
 export default function TrustSection() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
 

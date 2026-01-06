@@ -2,11 +2,12 @@
 
 import { cn } from "@/lib/utils";
 import { EmblaCarouselType, EmblaEventType } from "embla-carousel";
-import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { ComponentPropsWithRef, useCallback, useEffect, useRef, useState } from "react";
 import styles from "../styles/testimonials.module.css";
 import TestimonialVideoCard from "./TestimonialVideoCard";
+
+
 
 const slides = [
   {
@@ -14,7 +15,7 @@ const slides = [
     name: "Khushboo",
     location: "New York, USA",
     video: "/videos/khusboo.mp4",
-    desc : "We booked a flight from Gogo Trips with the help of Disha. And it was amazing. And the Disha is doing great job. I really like the service. We will definitely go again with Gogo Trips. Thank you so much.",
+    desc : "We booked a flight from Gogo Trips with the help of Disha.And it was amazing. And the Disha is doing great job. I really like the service. We will definitely go again with Gogo Trips. Thank you so much.",
   },
   {
     id: 2,
@@ -28,7 +29,7 @@ const slides = [
     name: "Tom Richards",
     location: "Crystal Lake, Illinois, USA",
     video: "/videos/tom.mp4",
-    desc: "I’ve used GoGo Trips several times for flights between Dublin, Florida, New York, Chicago, and California. They’ve saved me well over $1,000 with unbeatable service and prices. I highly recommend them — if they were on Trustpilot, I’d give them a 12 out of 10!",
+    desc: "I’ve used GoGo Trips several times for flights between Dublin, Florida, New York, Chicago, and California.They’ve saved me well over $1,000 with unbeatable service and prices. I highly recommend them — if they were on Trustpilot, I’d give them a 12 out of 10!",
   },
 ];
 const TWEEN_FACTOR_BASE = 0.3;
@@ -54,13 +55,10 @@ const DotButton: React.FC<PropType> = (props) => {
 };
 
 export default function Testimonials() {
-  // 1️⃣ Autoplay plugin
-  const autoplay = useRef(Autoplay({ delay: 5000, stopOnInteraction: false }));
 
-  // 2️⃣ Embla carousel
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true },
-    [autoplay.current]
+   
   );
 
   // const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
@@ -68,6 +66,7 @@ export default function Testimonials() {
   const tweenNodes = useRef<HTMLElement[]>([]);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const autoPlayRef = useRef<any>(null)
   const realIndex = selectedIndex % slides.length;
 
   const onDotButtonClick = useCallback(
@@ -78,28 +77,6 @@ export default function Testimonials() {
     [emblaApi]
   );
 
-  // Video play → stop carousel + disable swipe
-  const handleVideoPlay = useCallback(() => {
-    autoplay.current.stop();
-    emblaApi?.reInit({ watchDrag: false });
-  }, [emblaApi]);
-
-  // Video pause/end → resume carousel + enable swipe
-  const handleVideoPause = useCallback(() => {
-    emblaApi?.reInit({ watchDrag: true });
-    autoplay.current.play();
-  }, [emblaApi]);
-
-  // Update selected index
-  const onSelect = useCallback((api: EmblaCarouselType) => {
-    setSelectedIndex(api.selectedScrollSnap());
-  }, []);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect(emblaApi);
-    emblaApi.on("reInit", onSelect).on("select", onSelect);
-  }, [emblaApi, onSelect]);
 
 // useEffect(() => {
 //   if (!emblaApi) return;
@@ -117,19 +94,28 @@ useEffect(() => {
 
   video?.pause();
 
-  const autoplay = setInterval(() => {
+   autoPlayRef.current = setInterval(() => {
     emblaApi.scrollNext();
   }, 5000);
 
   return () => {
-    clearInterval(autoplay);
+    clearInterval(autoPlayRef.current);
     video?.play();
   };
 }, [emblaApi]);
 
-  // const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
-  //   setSelectedIndex(emblaApi.selectedScrollSnap());
-  // }, []);
+const autoPlayFn = useCallback((play: boolean) => {
+  if (!play) {
+    clearInterval(autoPlayRef.current);
+  }else{
+    autoPlayRef.current = setInterval(() => {
+      emblaApi?.scrollNext();
+    }, 5000); 
+  }}, [emblaApi]);
+
+  const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, []);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -217,9 +203,13 @@ useEffect(() => {
               {doubleSlides.map((i) => (
                 <div className={styles.embla__slide} key={i.id}>
                   <div className="embla__slide__number">
-                    <TestimonialVideoCard  data={i}
-              onPlay={handleVideoPlay}     // pass carousel stop callback
-              onPause={handleVideoPause} />
+                    <TestimonialVideoCard data={i} autoPlayFn={autoPlayFn} />
+                    <div className="mt-3 ml-3 absolute p-2">
+                      <p className=" text-yellow-400">★★★★☆</p>
+                      <p className="text-sm text-black font-light mb-3 leading-relaxed line-clamp-2 overflow-hidden hover:line-clamp-none max-w-md hover:cursor-pointer sm:hover:line-clamp-none">
+                        {i.desc}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -227,7 +217,7 @@ useEffect(() => {
           </div>
         </div>
       </div>
-      <div className="flex gap-0.5 justify-center relative items-center min-h-3">
+      <div className="flex gap-0.5 justify-center relative items-center min-h-3 mt-3">
         {slides.map((_, index) => (
           <DotButton
             key={index}

@@ -1,6 +1,6 @@
 "use client";
 
-import { CALL_URL, WHATSAPP_URL } from "@/app/constant";
+import { CALL_URL } from "@/app/constant";
 import { Button } from "@/components/ui/button";
 import { PhoneCall } from "lucide-react";
 import Image from "next/image";
@@ -55,6 +55,12 @@ const routes = [
 ];
 
 export default function RoutesSection() {
+//   const WhatsappLink=(title: string)=>{
+//   const phoneNo = "+1954-347-5414";
+//   const message = "Hi, i'd like to inquire about flights from ${title}";
+//   // window.open(`https://wa.me/1954-347-5414?text=${encodeURIComponent(message)}`);
+//   //  window.open(`https://wa.me/${phoneNo}?text=${encodeURIComponent(message)}`);
+// }
   return (
     <section className="w-full py-12.5 container-inner">
       {/* Heading */}
@@ -63,7 +69,7 @@ export default function RoutesSection() {
       </h2>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 xxs:grid-cols-2  xs:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 mb-7.5">
+      <div className="grid grid-cols-1 xxs:grid-cols-3  xs:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 mb-7.5">
         {routes.map((item) => (
           <div
             key={item.id}
@@ -85,13 +91,14 @@ export default function RoutesSection() {
             {/* <Button className="absolute text-lg bottom-3 left-0 right-0 mx-5 bg-project-white/5 backdrop-blur-xs border-project-white shadow-none hover:bg-white hover:text-black">
               {item.title}
             </Button> */}
-            <Link   href={WHATSAPP_URL}>
-            <Button
-              className="absolute text-[8px] sm:text-sm md:text-lg md:bottom-3 left-0 right-0 mx-1.5 md:mx-5 max-md:h-8 bottom-1.5"
-              variant={"blur"}
-            >
-              {item.title}
-            </Button>
+            <Link href={`https://wa.me/+19543475414?text=Hi, I'd like to inquire about flights from USA to ${item.title.split("To ")[1]}`} target="_blank">
+              <Button
+                className="absolute text-[8px] sm:text-sm md:text-lg md:bottom-3 left-0 right-0 mx-1.5 md:mx-5 max-md:h-8 bottom-1.5"
+                variant={"blur"}
+                // onClick={WhatsappLink}
+              >
+                {item.title}
+              </Button>
             </Link>
           </div>
         ))}
@@ -99,14 +106,12 @@ export default function RoutesSection() {
 
       {/* CTA Button */}
       <div className="text-center">
-        <Link  href={CALL_URL}>
-        <Button className="text-[15px] md:text-xl"
-         
-          > 
+        <Link href={CALL_URL}>
+          <Button className="text-[15px] md:text-xl">
             <PhoneCall name="Phonecall" className="size-4 xs:size-5 sm:size-7" />
-          Call To Book
+            Call To Book
           </Button>
-          </Link>
+        </Link>
       </div>
     </section>
   );

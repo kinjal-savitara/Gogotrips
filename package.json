@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@heroui/date-picker": "^2.3.30",
     "@heroui/modal": "^2.2.26",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-accordion": "^1.2.12",
@@ -23,8 +24,8 @@
     "clsx": "2.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-auto-scroll": "^8.6.0",
-    "embla-carousel-autoplay": "8.6.0",
-    "embla-carousel-react": "8.6.0",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "framer-motion": "12.23.24",
     "lightningcss": "^1.30.2",
     "lucide-react": "0.548.0",

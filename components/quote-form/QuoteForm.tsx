@@ -12,6 +12,7 @@ import { DatePicker } from "../datepicker/date-picker";
 import { DateRangePicker } from "../datepicker/DateRangePicker";
 import RedioGroup from "../redio group/RedioGroup";
 import Multicity from "./Multicity";
+import { WHATSAPP_URL } from "@/app/constant";
 
 type QuoteFormValues = {
   bookingType: string;
@@ -27,7 +28,7 @@ type QuoteFormValues = {
   countryCode: string;
 };
 
-const schema:any = yup.object().shape({
+const Validationschema: any = yup.object().shape({
   bookingType: yup.string().required("Booking type is required"),
   departure: yup
     .date()
@@ -65,30 +66,40 @@ export default function QuoteForm() {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<QuoteFormValues>({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(Validationschema) as any,
     mode: "onChange",
     defaultValues: {
       bookingType: "oneway",
       departure: undefined,
       returnDate: undefined,
-      countryCode: "+1",
+      countryCode: "+91",
     },
   });
- const bookingType = watch('bookingType');
-  console.log(errors)
+  const bookingType = watch("bookingType");
+  console.log(errors);
   const onSubmit = (data: QuoteFormValues) => {
     // console.log({ ...data, tripType });
     // alert(`Submitted (${tripType})`);
     console.log(data);
     reset();
   };
-const renderContent = () => {
-  if (bookingType === "oneway") return <><DatePicker /></>;
+  const renderContent = () => {
+    if (bookingType === "oneway")
+      return (
+        <>
+          <DatePicker />
+        </>
+      );
 
-  if (bookingType === "return") return <><DateRangePicker /></>;
-  if (bookingType === "multi") return <Multicity />;
-  return null;
-};
+    if (bookingType === "return")
+      return (
+        <>
+          <DateRangePicker />
+        </>
+      );
+    if (bookingType === "multi") return <Multicity />;
+    return null;
+  };
   const typeOptions = [
     { value: "oneway", label: "One Way" },
     { value: "return", label: "Roundtrip" },
@@ -115,20 +126,20 @@ const renderContent = () => {
             //   {...field}
             //   options={typeOptions}
             //   value={typeOptions.find((i) => i.value === field.value)}
-             
+
             // />
             <RedioGroup
               name="bookingType"
               value={field.value}
               onChange={field.onChange}
               options={typeOptions}
-              
             />
           )}
         />
-        <Controller  name="bookingType"
-              control={control}
-              render={({ field, fieldState }) => renderContent()}
+        <Controller
+          name="bookingType"
+          control={control}
+          render={({ field, fieldState }) => renderContent()}
         />
         {/* <Controller
           name="departure"
@@ -164,95 +175,97 @@ const renderContent = () => {
           )}
         /> */}
 
-      {bookingType !== 'multi' && <div className="w-full flex flex-row gap-4">
-         {/* Departure place */}
-        <div className="space-y-1 w-1/2">
-          <Input
-            placeholder="Departure place"
-            {...register("departurePlace")}
-            
-            className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white "
-          />{" "}
-          {errors.departurePlace && (
-            <p className="text-red-400 text-xs">{errors.departurePlace?.message || ""}</p>
-          )}
-        </div>
-        {/* Arrival place */}
-        <div className="space-y-1 w-1/2">
-          <Input
-            placeholder="Arrival place"
-            {...register("arrival")}
-            className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white "
-          />
-          {errors.arrival && (
-            <p className="text-red-400 text-xs">{errors.arrival?.message || ""}</p>
-          )}
-        </div>
-       </div>}
-  <div className="w-full flex flex-row gap-4">
-       {/* Name  input */}
-        <div className="space-y-1 w-1/2">
-          <Input
-            placeholder="Full Name"
-            {...register("fullName")}
-            className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white"
-          />
-          {errors.fullName && (
-            <p className="text-red-400 text-xs">{errors.fullName?.message || ""}</p>
-          )}
-        </div>
-        <div className="space-y-1 w-1/2">
-          <Input
-            placeholder="No. Of Passengers"
-            type="number"
-            {...register("passengers")}
-            className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white "
-          />
-          {errors.passengers && (
-            <p className="text-red-400 text-xs">{errors.passengers?.message || ""}</p>
-          )}
-        </div>
-        </div>
-    <div className="w-full flex flex-row gap-4">
-        <div className="space-y-1 w-1/2">
-          <Input
-            placeholder="Email Address"
-            type="email"
-            {...register("email")}
-            className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white "
-          />
-          {errors.email && <p className="text-red-400 text-xs">{errors.email?.message || ""}</p>}
-        </div>
-        <div className="space-y-1 w-1/2">
-          <div className="flex gap-2 md:col-span-1 items-start relative">
-            <Controller
-              name="countryCode"
-              control={control}
-              render={({ field }) => (
-                <CustomSelect
-                  {...field}
-                  options={countryOptions}
-                  value={countryOptions.find((i) => i.value === field.value)}
-                  onChange={(e: any) => {
-                    field.onChange(e?.value || "+1");
-                  }}
-                  className="focus-visible:ring-white/50 w-19 focus-visible:ring-2 relative z-10"
-                />
+        {bookingType !== "multi" && (
+          <div className="w-full flex flex-row gap-4 xl:flex-row">
+            {/* Departure place */}
+            <div className="space-y-1 w-1/2 xl:w-full">
+              <Input
+                placeholder="Departure place"
+                {...register("departurePlace")}
+                className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white "
+              />{" "}
+              {errors.departurePlace && (
+                <p className="text-red-400 text-xs">{errors.departurePlace?.message || ""}</p>
               )}
-            />
-            <Input
-              placeholder="Mobile No."
-              {...register("phone")}
-              className="absolute z-0 pl-20 bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white  flex-1"
-            />
+            </div>
+            {/* Arrival place */}
+            <div className="space-y-1 w-1/2 xl:w-full">
+              <Input
+                placeholder="Arrival place"
+                {...register("arrival")}
+                className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white "
+              />
+              {errors.arrival && (
+                <p className="text-red-400 text-xs">{errors.arrival?.message || ""}</p>
+              )}
+            </div>
           </div>
-          {errors.countryCode && (
-            <p className="text-red-400 text-xs">{errors.countryCode?.message || ""}</p>
-          )}
-          {errors.phone && <p className="text-red-400 text-xs">{errors.phone?.message || ""}</p>}
+        )}
+        <div className="w-full flex flex-row gap-4">
+          {/* Name  input */}
+          <div className="space-y-1 w-1/2">
+            <Input
+              placeholder="Full Name"
+              {...register("fullName")}
+              className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white"
+            />
+            {errors.fullName && (
+              <p className="text-red-400 text-xs">{errors.fullName?.message || ""}</p>
+            )}
+          </div>
+          <div className="space-y-1 w-1/2">
+            <Input
+              placeholder="No. Of Passengers"
+              type="number"
+              {...register("passengers")}
+              className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white "
+            />
+            {errors.passengers && (
+              <p className="text-red-400 text-xs">{errors.passengers?.message || ""}</p>
+            )}
+          </div>
         </div>
+        <div className="w-full flex flex-row gap-4">
+          <div className="space-y-1 w-1/2">
+            <Input
+              placeholder="Email Address"
+              type="email"
+              {...register("email")}
+              className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white "
+            />
+            {errors.email && <p className="text-red-400 text-xs">{errors.email?.message || ""}</p>}
+          </div>
+          <div className="space-y-1 w-1/2">
+            <div className="flex gap-2 md:col-span-1 items-start relative">
+              <Controller
+                name="countryCode"
+                control={control}
+                render={({ field }) => (
+                  <CustomSelect
+                    {...field}
+                    options={countryOptions}
+                    value={countryOptions.find((i) => i.value === field.value)}
+                    onChange={(e: any) => {
+                      field.onChange(e?.value || "+91");
+                    }}
+                    className="focus-visible:ring-white/50 w-20 focus-visible:ring-2 relative z-10"
+                  />
+                )}
+              />
+              <Input
+                placeholder="Mobile No."
+                {...register("phone")}
+                className="absolute z-0 pl-21 bg-project-white/25 border border-project-white backdrop-blur-xs 
+                placeholder:text-project-white placeholder:font-light text-white  flex-1 "
+              />
+            </div>
+            {errors.countryCode && (
+              <p className="text-red-400 text-xs">{errors.countryCode?.message || ""}</p>
+            )}
+            {errors.phone && <p className="text-red-400 text-xs">{errors.phone?.message || ""}</p>}
+          </div>
         </div>
-      <Textarea
+        <Textarea
           placeholder="Message"
           {...register("message")}
           className="md:col-span-1 bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white"
@@ -260,28 +273,28 @@ const renderContent = () => {
       </div>
 
       {/* Submit */}
-     {bookingType !== 'multi' && <div className="pt-4 flex flex-col items-center">
-        <Button
-          type="submit"
-          variant="secondary"
-          disabled={isSubmitting}
-          className="px-4 py-3 text-xl"
-          onClick={() => {
-            if (isSubmitting) {
-              window.open("https://wa.me/1234567890", "_blank");
-            }
-          }}
-         
-          // className="bg-white text-black font-semibold rounded-full px-8 py-2 hover:bg-gray-100"
-        >
-          {isSubmitting ? "Submitting..." : "Get Your FREE Quote Now"}
-        </Button>
-        <p className="text-[#E9EAEA] text-[13px] md:text-[17px] font-light mt-2">
-          24/7 Support | Zero IVR Wait
-        </p>
-      </div>
-    }
-   
+      {bookingType !== "multi" && (
+        <div className="pt-4 flex flex-col items-center">
+          <Button
+            type="submit"
+            variant="secondary"
+            disabled={isSubmitting}
+            className="px-4 py-3 text-xl"
+            onClick={() => {
+              if (isSubmitting) {
+                window.open({ WHATSAPP_URL }, "_blank");
+              }
+            }}
+
+            // className="bg-white text-black font-semibold rounded-full px-8 py-2 hover:bg-gray-100"
+          >
+            {isSubmitting ? "Submitting..." : "Get Your FREE Quote Now"}
+          </Button>
+          <p className="text-[#E9EAEA] text-[13px] md:text-[17px] font-light mt-2">
+            24/7 Support | Zero IVR Wait
+          </p>
+        </div>
+      )}
     </form>
   );
 }

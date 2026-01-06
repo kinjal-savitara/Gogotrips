@@ -108,21 +108,44 @@
 
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon, Plus, XIcon } from "lucide-react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Plus, XIcon } from "lucide-react";
 import * as React from "react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { Date } from "../datepicker/Date";
 import { Input } from "../ui/input";
+
 type RowData = {
   from: string;
   to: string;
   date: string;
 };
-
+type QuoteFormValues = {
+  from: string;
+  to: string;
+  date: string;
+};
+const schema: any = yup.object().shape({
+  fullName: yup.string().required("Full name is required").trim("Full name is required"),
+  arrival: yup.string().required("Arrival place is required").trim("Arrival place is required"),
+  from: yup.string().required("From place is required").trim("From place is required"),
+  to: yup.string().required("To place is required").trim("To place is required"),
+  date: yup.string().required("Date is required").trim("Date is required"),
+});
 export default function Multicity() {
-    const [date, setDate] = React.useState<Date>();
-  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<QuoteFormValues>({
+    resolver: yupResolver(schema) as any,
+    mode: "onChange",
+  });
+  const [date, setDate] = React.useState<Date>();
+
   const [rows, setRows] = useState<RowData[]>([
     { from: "", to: "", date: "" }, // start with 1 row
   ]);
@@ -149,30 +172,40 @@ export default function Multicity() {
     newRows.splice(index, 1);
     setRows(newRows);
   };
+  const SubmitData = (data: QuoteFormValues) => {
+    // console.log({ ...data, tripType });
+    // alert(`Submitted (${tripType})`);
+    console.log(data);
+    reset();
+  };
 
   return (
     <div className="max-w-md mx-auto space-x-2">
       {rows.map((row, idx) => (
         <div key={idx} className="space-y-2">
           {/* From + To in one line */}
-          <div className="flex  w-full gap-4">
-            <div className="flex-2 space-x-10">
+          <div className="flex  w-full gap-4 mt-2">
+            <div className="flex-2 space-x-10 ">
               <Input
                 type="text"
+                {...register("from")}
                 placeholder="From"
-                value={row.from}
-                onChange={(e) => handleChange(idx, "from", e.target.value)}
+                // value={row.from}
+                // onChange={(e) => handleChange(idx, "from", e.target.value)}
                 className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white w-full"
               />
+              {errors.from && <p className="text-red-400 text-xs">{errors.from?.message || ""}</p>}
             </div>
             <div className="flex-2">
               <Input
                 type="text"
                 placeholder="To"
-                value={row.to}
-                onChange={(e) => handleChange(idx, "to", e.target.value)}
+                {...register("to")}
+                // value={row.to}
+                // onChange={(e) => handleChange(idx, "to", e.target.value)}
                 className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white w-full"
-              />
+              />{" "}
+              {errors.to && <p className="text-red-400 text-xs">{errors.to?.message || ""}</p>}
             </div>
           </div>
 
@@ -186,18 +219,22 @@ export default function Multicity() {
             onChange={(e) => handleChange(idx, "date", e.target.value)}
             className="bg-project-white/25  border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white w-full"
           /> */}
-          {/* <DatePicker>Date</DatePicker> */}
-             
-              <Button
+              <Date />
+
+              {/* <Button
                         variant="outline"
                         data-empty={!date}
                         className="text-white w-full justify-start px-3 py-1 text-left font-normal bg-white/25 h-10 hover:text-white hover:bg-white/30  "
-                        value={row.date}
             // onSelect={(e) => handleChange(idx, "date", e.target.value)}
                       >
-                        <CalendarIcon />
+                        <CalendarIcon  mode="single" selected={date} onSelect={setDate} />
                         {date ? format(date, "PPP") : <span className="">Date</span>}
-                      </Button>
+                      </Button> */}
+              {/* <DatePicker
+                // label="Date"
+                selectorButtonPlacement="start"
+                className=" gap-1 text-white w-full border font-normal rounded bg-white/25 px-3 py-1 text-center  h-10 hover:text-white hover:bg-white/30"
+              /> */}
             </div>
 
             {rows.length > 1 && (
@@ -206,14 +243,17 @@ export default function Multicity() {
               </button>
             )}
 
-            <div className="flex-2 w-1/2">
-              <button
-                onClick={handleAddRow}
-                className="text-white w-full border font-normal rounded bg-white/25 justify-center px-3 py-1 text-center  h-10 hover:text-white hover:bg-white/30"
-                disabled={rows.length >= 5}
-              >
-                <Plus/>Add City
-              </button>
+            <div className="flex-2 w-1/2 ">
+              {idx === rows.length - 1 && rows.length < 5 && (
+                <button
+                  onClick={handleAddRow}
+                  className="flex flex-row gap-1 items-center text-white w-full border font-normal rounded bg-white/25 justify-center px-3 py-1 text-center  h-10 hover:text-white hover:bg-white/30"
+                  disabled={rows.length >= 5}
+                >
+                  <Plus />
+                  Add City
+                </button>
+              )}
             </div>
           </div>
         </div>

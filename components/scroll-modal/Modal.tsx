@@ -1,9 +1,9 @@
 "use client";
 
 import { CheckCircle, MessageCircle, Phone, XIcon } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import Image from "next/image";
 
 export default function Modal() {
   // const [open, setOpen] = useState(false);
@@ -43,7 +43,7 @@ export default function Modal() {
     setMounted(true);
   }, []);
 
-  // 🔹 Open modal on scroll
+  // Open modal on scroll
   useEffect(() => {
     if (!mounted) return;
 

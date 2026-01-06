@@ -177,11 +177,11 @@ import { CustomIcon } from "../ui/custom-icon";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white relative overflow-hidden z-0 p-4 sm:text-[14px]">
+    <footer className="bg-primary text-white relative overflow-hidden z-0 p-4 sm:text-[14px] md:text-2xl">
       <div className="absolute inset-0 bg-no-repeat bg-[url('/images/footer-map-bg.png')] bg-cover bg-center -z-10"></div>
       <div className="relative max-w-6xl mx-auto grid gap-6 grid-cols-2 md:grid-cols-3 pt-5">
         {/* Left Section */}
-        <div className="">
+        <div className="mt-2">
           <Image
             src="/logo-white.png"
             alt="GoGo Trips Logo"
@@ -189,10 +189,10 @@ export default function Footer() {
             height={68}
             className="object-contain sm:h-60 -ml-4"
           />
-          <div className="">
+          <div className="text-sm mt-2">
           <h3 className="font-semibold mt-4 mb-3 md:text-[10px]">Fly Smarter. Travel Better.</h3>
 
-          <p className="font-light mb-2 leading-relaxed md:text-[10px]">
+          <p className="font-light mb-2 leading-relaxed md:text-[10px] ">
             Your journey matters, and so does who books it for you.
           </p>
           <p className="mb-2 font-light leading-relaxed md:text-[10px]">
@@ -241,7 +241,7 @@ export default function Footer() {
         {/* Middle Section */}
         <div className="col-span-1 md:col-span-1 mt-4">
         <div className="">
-          <h3 className="font-bold text-lg mb-4">Contact Info</h3>
+          <h3 className="font-bold md:text-lg mb-4">Contact Info</h3>
           <p className="text-sm mb-4 leading-relaxed">
             Address: 8 The Green, Suite B, Dover, Delaware - 19901
           </p>
@@ -277,7 +277,7 @@ export default function Footer() {
 
         {/* Right Section */}
         <div className="">
-          <h3 className="font-bold text-lg mb-4 mt-3">Quick Links</h3>
+          <h3 className="font-bold md:text-lg mb-4 mt-3">Quick Links</h3>
           <ul className="space-y-2 text-sm ">
             <li>
               <Link href="#">Terms And Conditions</Link>

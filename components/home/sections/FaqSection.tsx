@@ -46,7 +46,7 @@ export default function FaqSection({ right }: { right?: boolean }) {
       <h2 className="text-center text-[15px] md:text-base lg:text-xl font-bold text-primary mb-4.5 md:mb-7.5">
         FREQUENTLY ASKED QUESTIONS
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-1 md:gap-5">
         {/* LEFT COLUMN */}
         {/* <div className="space-y-4">
           <Accordion type="single" collapsible>
@@ -62,22 +62,23 @@ export default function FaqSection({ right }: { right?: boolean }) {
             ))}
           </Accordion>
         </div>
-  */}<div className="">
-        <Accordion type="single" collapsible>
-          {left.map((item, i) => (
-            <AccordionItem key={i} value={`right-${i}`} className="border-none">
-              <AccordionTrigger className="text-sm md:text-base font-medium text-primary border-b pb-3 rounded-none border-primary">
-                {item.q}
-              </AccordionTrigger>
-              <AccordionContent className="text-xs md:text-[15px] font-light leading-snug text-primary pt-2">
-                {item.a}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
+  */}
+        <div className="">
+          <Accordion type="single" collapsible>
+            {left.map((item, i) => (
+              <AccordionItem key={i} value={`right-${i}`} className="border-none">
+                <AccordionTrigger className="text-sm md:text-base font-medium text-primary border-b pb-3 rounded-none border-primary">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-xs md:text-[15px] font-light leading-snug text-primary pt-2">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
         {/* RIGHT COLUMN */}
-      {/* <div className="space-y-4">
+        {/* <div className="space-y-4 sm:hidden xl:block">
           <Accordion type="single" collapsible>
             {right.map((item, i) => (
               <AccordionItem key={i} value={`right-${i}`} className="border-none">
@@ -92,32 +93,29 @@ export default function FaqSection({ right }: { right?: boolean }) {
           </Accordion>
       
         </div> */}
-       <div className="sm:hidden">
-        
-        {/* Mobile accordion expands only when button clicked */}
-        {isOpen && (
-          <Accordion type="multiple" collapsible value={rightq.map((_, i) => `right-${i}`)}>
-            {rightq.map((item, i) => (
-              <AccordionItem key={i} value={`right-${i}`} className="border-none">
-                <AccordionTrigger className="text-sm md:text-base font-medium text-primary border-b pb-3 rounded-none border-primary">
-                  {item.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-xs md:text-[15px] font-light leading-snug text-primary pt-2">
-                  {item.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        )}
-         <Button
-          className="mt-5 text-white font-semibold self-start w-full"
-          onClick={() => setIsOpen((prev) => !prev)}
-        >
-          {isOpen ? "View Less" : "View More"}
-        </Button>
-
-      </div>
-    
+        <div className="sm:hidden">
+          {/* Mobile accordion expands only when button clicked */}
+          {isOpen && (
+            <Accordion type="multiple" collapsible value={rightq.map((_, i) => `right-${i}`)}>
+              {rightq.map((item, i) => (
+                <AccordionItem key={i} value={`right-${i}`} className="border-none">
+                  <AccordionTrigger className="text-sm md:text-base font-medium text-primary border-b pb-3 rounded-none border-primary">
+                    {item.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-xs md:text-[15px] font-light leading-snug text-primary pt-2">
+                    {item.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          )}
+          <Button
+            className="mt-5 text-white font-semibold self-start w-full"
+            onClick={() => setIsOpen((prev) => !prev)}
+          >
+            {isOpen ? "View Less" : "View More"}
+          </Button>
+        </div>
       </div>
     </section>
   );
