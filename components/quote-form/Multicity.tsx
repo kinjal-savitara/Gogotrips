@@ -128,8 +128,6 @@ type QuoteFormValues = {
   date: string;
 };
 const schema: any = yup.object().shape({
-  fullName: yup.string().required("Full name is required").trim("Full name is required"),
-  arrival: yup.string().required("Arrival place is required").trim("Arrival place is required"),
   from: yup.string().required("From place is required").trim("From place is required"),
   to: yup.string().required("To place is required").trim("To place is required"),
   date: yup.string().required("Date is required").trim("Date is required"),
@@ -138,22 +136,18 @@ export default function Multicity() {
   const {
     register,
     handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
+    formState: { errors},
   } = useForm<QuoteFormValues>({
     resolver: yupResolver(schema) as any,
-    mode: "onChange",
   });
-  const [date, setDate] = React.useState<Date>();
-
   const [rows, setRows] = useState<RowData[]>([
-    { from: "", to: "", date: "" }, // start with 1 row
+    { from: "", to: "", date: "" }, 
   ]);
 
   // Add a new row
   const handleAddRow = () => {
     if (rows.length >= 5) {
-      alert("You can add up to 5 rows only");
+     
       return;
     }
     setRows([...rows, { from: "", to: "", date: "" }]);
@@ -172,56 +166,57 @@ export default function Multicity() {
     newRows.splice(index, 1);
     setRows(newRows);
   };
-  const SubmitData = (data: QuoteFormValues) => {
-    // console.log({ ...data, tripType });
-    // alert(`Submitted (${tripType})`);
-    console.log(data);
-    reset();
-  };
 
+ const onSubmit = (data: QuoteFormValues) => {
+   console.log("Form Submitted:", data);
+ };
   return (
-    <div className="max-w-md mx-auto space-x-2">
-      {rows.map((row, idx) => (
-        <div key={idx} className="space-y-2">
-          {/* From + To in one line */}
-          <div className="flex  w-full gap-4 mt-2">
-            <div className="flex-2 space-x-10 ">
-              <Input
-                type="text"
-                {...register("from")}
-                placeholder="From"
-                // value={row.from}
-                // onChange={(e) => handleChange(idx, "from", e.target.value)}
-                className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white w-full"
-              />
-              {errors.from && <p className="text-red-400 text-xs">{errors.from?.message || ""}</p>}
-            </div>
-            <div className="flex-2">
-              <Input
-                type="text"
-                placeholder="To"
-                {...register("to")}
-                // value={row.to}
-                // onChange={(e) => handleChange(idx, "to", e.target.value)}
-                className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white w-full"
-              />{" "}
-              {errors.to && <p className="text-red-400 text-xs">{errors.to?.message || ""}</p>}
-            </div>
-          </div>
+    <>
+        <div className="max-w-md mx-auto space-x-2" onSubmit={handleSubmit(onSubmit)}>
+          {rows.map((row, idx) => (
+            <div key={idx} className="space-y-2">
+              {/* From + To in one line */}
+              <div className="flex  w-full gap-4 mt-2">
+                <div className="flex-2 space-x-10 ">
+                  <Input
+                    type="text"
+                    {...register("from")}
+                    placeholder="From"
+                    // value={row.from}
+                    // onChange={(e) => handleChange(idx, "from", e.target.value)}
+                    className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white w-full"
+                  />
+                  
+                  {errors.from && (
+                    <p className="text-red-400 text-xs">{errors.from.message || ""}</p>
+                  )}
+                </div>
+                <div className="flex-2">
+                  <Input
+                    type="text"
+                    placeholder="To"
+                    {...register("to")}
+                    // value={row.to}
+                    // onChange={(e) => handleChange(idx, "to", e.target.value)}
+                    className="bg-project-white/25 border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white w-full"
+                  />{" "}
+                  {errors.to && <p className="text-red-400 text-xs">{errors.to?.message || ""}</p>}
+                </div>
+              </div>
 
-          {/* Date + Remove button in one line */}
-          <div className="flex items-center gap-4 w-full mt-3">
-            <div className="flex-2 w-1/2">
-              {/* <Input
+              {/* Date + Remove button */}
+              <div className="flex items-center gap-4 w-full mt-3">
+                <div className="flex-2 w-1/2">
+                  {/* <Input
           type="date"
             placeholder="date"
             value={row.date}
             onChange={(e) => handleChange(idx, "date", e.target.value)}
             className="bg-project-white/25  border border-project-white backdrop-blur-xs placeholder:text-project-white placeholder:font-light text-white w-full"
           /> */}
-              <Date />
+                  <Date />
 
-              {/* <Button
+                  {/* <Button
                         variant="outline"
                         data-empty={!date}
                         className="text-white w-full justify-start px-3 py-1 text-left font-normal bg-white/25 h-10 hover:text-white hover:bg-white/30  "
@@ -230,38 +225,43 @@ export default function Multicity() {
                         <CalendarIcon  mode="single" selected={date} onSelect={setDate} />
                         {date ? format(date, "PPP") : <span className="">Date</span>}
                       </Button> */}
-              {/* <DatePicker
+                  {/* <DatePicker
                 // label="Date"
                 selectorButtonPlacement="start"
                 className=" gap-1 text-white w-full border font-normal rounded bg-white/25 px-3 py-1 text-center  h-10 hover:text-white hover:bg-white/30"
               /> */}
-            </div>
+                </div>
 
-            {rows.length > 1 && (
-              <button onClick={() => handleRemove(idx)} className="text-red-500 hover:text-red-700">
-                <XIcon />
-              </button>
-            )}
+                {rows.length > 1 && (
+                  <button
+                    onClick={() => handleRemove(idx)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <XIcon />
+                  </button>
+                )}
 
-            <div className="flex-2 w-1/2 ">
-              {idx === rows.length - 1 && rows.length < 5 && (
-                <button
-                  onClick={handleAddRow}
-                  className="flex flex-row gap-1 items-center text-white w-full border font-normal rounded bg-white/25 justify-center px-3 py-1 text-center  h-10 hover:text-white hover:bg-white/30"
-                  disabled={rows.length >= 5}
-                >
-                  <Plus />
-                  Add City
-                </button>
-              )}
+                <div className="flex-2 w-1/2 ">
+                  {idx === rows.length - 1 && rows.length < 5 && (
+                    <button
+                      onClick={handleAddRow}
+                      className="flex flex-row gap-1 items-center text-white w-full border font-normal rounded bg-white/25 justify-center px-3 py-1 text-center  h-10 hover:text-white hover:bg-white/30"
+                      disabled={rows.length >= 5}
+                    >
+                      <Plus />
+                      Add City
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
+
+          {/* Add Another button in same line as empty space */}
+
+          {rows.length >= 5 && <p className="text-red-500 mt-2">Maximum 5 rows allowed</p>}
         </div>
-      ))}
-
-      {/* Add Another button in same line as empty space */}
-
-      {rows.length >= 5 && <p className="text-red-500 mt-2">Maximum 5 rows allowed</p>}
-    </div>
+     
+    </>
   );
 }

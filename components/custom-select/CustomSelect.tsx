@@ -90,5 +90,7 @@ export default function CustomSelect({
   placeholder = "Select...",
   ...props
 }: SelectProps) {
-  return <Select options={options} styles={customStyles} placeholder={placeholder} {...props} />;
+  return <Select options={options} 
+  styles={customStyles}
+   placeholder={placeholder} {...props} />;
 }

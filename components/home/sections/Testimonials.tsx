@@ -206,7 +206,7 @@ const autoPlayFn = useCallback((play: boolean) => {
                     <TestimonialVideoCard data={i} autoPlayFn={autoPlayFn} />
                     <div className="mt-3 ml-3 absolute p-2">
                       <p className=" text-yellow-400">★★★★☆</p>
-                      <p className="text-sm text-black font-light mb-3 leading-relaxed line-clamp-2 overflow-hidden hover:line-clamp-none max-w-md hover:cursor-pointer sm:hover:line-clamp-none">
+                      <p className="text-sm text-black font-light mb-3 leading-relaxed line-clamp-2 overflow-hidden hover:line-clamp-none max-w-md sm:hover:line-clamp-none">
                         {i.desc}
                       </p>
                     </div>

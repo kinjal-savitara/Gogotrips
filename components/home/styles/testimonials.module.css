@@ -31,13 +31,6 @@
   user-select: none;
 }
 
-@media screen and (min-width:480px) {
-  
-  .embla__container {
-
-    height: 700px;
-  }
-}
 @media screen and (min-width:640px) {
   .embla__container {
 

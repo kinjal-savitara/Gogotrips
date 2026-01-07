@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import { WHATSAPP_URL } from "@/app/constant";
 import { Textarea } from "@/components/ui/textarea";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
@@ -12,7 +13,6 @@ import { DatePicker } from "../datepicker/date-picker";
 import { DateRangePicker } from "../datepicker/DateRangePicker";
 import RedioGroup from "../redio group/RedioGroup";
 import Multicity from "./Multicity";
-import { WHATSAPP_URL } from "@/app/constant";
 
 type QuoteFormValues = {
   bookingType: string;
@@ -26,25 +26,64 @@ type QuoteFormValues = {
   phone: string;
   message: string;
   countryCode: string;
+  from: string;
+  to: string;
+  date: string;
 };
 
 const Validationschema: any = yup.object().shape({
   bookingType: yup.string().required("Booking type is required"),
-  departure: yup
-    .date()
-    .typeError("Please select a departure date")
-    .required("Departure date is required"),
-  returnDate: yup
-    .date()
-    .typeError("Please select a return date")
-    .required("Return date is required")
-    .min(yup.ref("departure"), "Return date cannot be before departure"),
+  departure: yup.string().when("bookingType",{
+    is: (val: string) => val === "oneway" || val === "return",
+    then: (schema: any) => schema.required("Departure date is required"),
+    otherwise: (schema: any) => schema.notRequired(),
+  }),
+  // departure: yup
+  //   .date()
+  //   .typeError("Please select a departure date")
+  //   .required("Departure date is required"),
+  // departure: yup.string().when('bookingType', {
+  //   is: (val: string) => {
+  //     console.log("val", val);
+  //     val === "oneway" || val === "return";
+  //   },
+  //   then: (schema: any) => schema.required("Departure date is required"),
+  //   otherwise: (schema: any) => schema.notRequired(),
+  // }),
+  // returnDate: yup
+  //   .date()
+  //   .typeError("Please select a return date")
+  //   .required("Return date is required")
+  //   .min(yup.ref("departure"), "Return date cannot be before departure"),
+    returnDate:yup.string().when("bookingType",{
+    is: (val: string) => val === "return",
+    then: (schema: any) => schema.required("Departure & Return date is required"),
+    otherwise: (schema: any) => schema.notRequired(),
+  }),
+  // returnDate: yup.string().when('bookingType', {
+  //   is: (val: string) => {
+  //     val === "return";
+  //   },
+  //   then: (schema: any) => schema.required("Return date is required"),
+  //   otherwise: (schema: any) => schema.notRequired(),
+  // }),
   fullName: yup.string().required("Full name is required").trim("Full name is required"),
-  arrival: yup.string().required("Arrival place is required").trim("Arrival place is required"),
-  departurePlace: yup
-    .string()
-    .required("Departure place is required")
-    .trim("Departure place is required"),
+
+ departurePlace: yup.string().when("bookingType",{
+    is: (val: string) => val === "oneway" || val === "return",
+    then: (schema: any) => schema.required("Departure place is required").trim("Departure place is required"),
+    otherwise: (schema: any) => schema.notRequired(),
+  }),
+  //  departurePlace: yup
+  //   .string()
+  //   .required("Departure place is required")
+  //   .trim("Departure place is required"),
+    arrival: yup.string().when("bookingType",{
+    is: (val: string) => val === "oneway" || val === "return",
+    then: (schema: any) => schema.required("Arrival place is required").trim("Arrival place is required"),
+    otherwise: (schema: any) => schema.notRequired(),
+  }),
+  // arrival: yup.string().required("Arrival place is required").trim("Arrival place is required"),
   passengers: yup
     .number()
     .typeError("Passenger count must be a number")
@@ -52,9 +91,40 @@ const Validationschema: any = yup.object().shape({
     .positive("Passenger count must be greater than zero")
     .required("Passenger count is required"),
   email: yup.string().email("Invalid email").required("Email is required"),
-  phone: yup.string().required("Phone number required"),
+  phone: yup.string().required("Phone number required").max(15, "Phone number is too long"),
   message: yup.string().optional(),
   countryCode: yup.string().required("Country code required"),
+  from:yup.string().when("bookingType",{
+    is: (val: string) => val === "multi",
+    then: (schema: any) => schema.required("From place is required").trim("From place is required"),
+    otherwise: (schema: any) => schema.notRequired(),
+  }),
+ to:yup.string().when("bookingType",{
+    is: (val: string) => val === "multi",
+    then: (schema: any) => schema.required("To place is required").trim("To place is required"),
+    otherwise: (schema: any) => schema.notRequired(),
+  }),
+ date:yup.string().when("bookingType",{
+    is: (val: string) => val === "multi",
+    then: (schema: any) => schema.required("Date is required").trim("Date is required"),
+    otherwise: (schema: any) => schema.notRequired(),
+  }),
+  //  from: yup.string().required("From place is required").trim("From place is required"),
+  // from: yup.string().when("bookingType", {
+  //   is: (val: string) => val === "multi",
+  //   then: (schema: any) => schema.required("From place is required").trim("From place is required"),
+  //   otherwise: (schema: any) => schema.notRequired(),
+  // }),
+  // to: yup.string().when("bookingType", {
+  //   is: (val: string) => val === "multi",
+  //   then: (schema: any) => schema.required("To place is required").trim("To place is required"),
+  //   otherwise: (schema: any) => schema.notRequired(),
+  // }),
+  // date: yup.string().when("bookingType", {
+  //   is: (val: string) => val === "multi",
+  //   then: (schema: any) => schema.required("Date is required").trim("Date is required"),
+  //   otherwise: (schema: any) => schema.notRequired(),
+  // }),
 });
 
 export default function QuoteForm() {
@@ -80,24 +150,62 @@ export default function QuoteForm() {
   const onSubmit = (data: QuoteFormValues) => {
     // console.log({ ...data, tripType });
     // alert(`Submitted (${tripType})`);
-    console.log(data);
-    reset();
+    console.log("Form Submitted:", data);
+    // reset();
   };
-  const renderContent = () => {
+  const renderContent = (error: any, field: returnField,) => {
     if (bookingType === "oneway")
       return (
         <>
-          <DatePicker />
+          <div className="">
+            <DatePicker />
+            {(error.error || errors.departure) && (
+              <p className="text-red-400 text-xs">
+                {error.error?.message || errors.departure?.message}
+              </p>
+            )}
+          </div>
         </>
       );
 
     if (bookingType === "return")
       return (
         <>
-          <DateRangePicker />
+          <div className="">
+            <DateRangePicker
+            />
+            {(error.error || errors.returnDate) && (
+              <p className="text-red-400 text-xs">
+                {error.error?.message || errors.returnDate?.message}
+              </p>
+            )}
+          </div>
         </>
       );
-    if (bookingType === "multi") return <Multicity />;
+    if (bookingType === "multi") return (
+      <div className="">
+        <div className=" flex flex-row justify-between">
+          {(error.error || errors.from) && (
+            <p className="text-red-400 text-xs">{error.error?.message || errors.from?.message}</p>
+          )}
+          {(error.error || errors.to) && (
+            <p className="text-red-400 text-xs">{error.error?.message || errors.to?.message}</p>
+          )}
+        </div>
+        
+      <Multicity />
+        
+        {/* {(error.error || errors.from) && (
+          <p className="text-red-400 text-xs">{error.error?.message || errors.from?.message}</p>
+        )}
+        {(error.error || errors.to) && (
+          <p className="text-red-400 text-xs">{error.error?.message || errors.to?.message}</p>
+        )} */}
+        {(error.error || errors.date) && (
+          <p className="text-red-400 text-xs">{error.error?.message || errors.date?.message}</p>
+        )}
+      </div>
+    );
     return null;
   };
   const typeOptions = [
@@ -139,8 +247,9 @@ export default function QuoteForm() {
         <Controller
           name="bookingType"
           control={control}
-          render={({ field, fieldState }) => renderContent()}
+          render={({ field, fieldState }) => renderContent(errors)}
         />
+     
         {/* <Controller
           name="departure"
           control={control}
@@ -273,28 +382,29 @@ export default function QuoteForm() {
       </div>
 
       {/* Submit */}
-      {bookingType !== "multi" && (
-        <div className="pt-4 flex flex-col items-center">
-          <Button
-            type="submit"
-            variant="secondary"
-            disabled={isSubmitting}
-            className="px-4 py-3 text-xl"
-            onClick={() => {
-              if (isSubmitting) {
-                window.open({ WHATSAPP_URL }, "_blank");
-              }
-            }}
 
-            // className="bg-white text-black font-semibold rounded-full px-8 py-2 hover:bg-gray-100"
-          >
-            {isSubmitting ? "Submitting..." : "Get Your FREE Quote Now"}
-          </Button>
+      <div className="pt-4 flex flex-col items-center">
+        <Button
+          type="submit"
+          variant="secondary"
+          disabled={isSubmitting}
+          className="px-4 py-3 text-xl"
+          onClick={() => {
+            if (isSubmitting) {
+              window.open({ WHATSAPP_URL }, "_blank");
+            }
+          }}
+
+          // className="bg-white text-black font-semibold rounded-full px-8 py-2 hover:bg-gray-100"
+        >
+          {isSubmitting ? "Submitting..." : "Get Your FREE Quote Now"}
+        </Button>
+        {bookingType !== "multi" && (
           <p className="text-[#E9EAEA] text-[13px] md:text-[17px] font-light mt-2">
             24/7 Support | Zero IVR Wait
           </p>
-        </div>
-      )}
+        )}
+      </div>
     </form>
   );
 }
