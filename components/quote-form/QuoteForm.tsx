@@ -142,7 +142,7 @@ export default function QuoteForm() {
       bookingType: "oneway",
       departure: undefined,
       returnDate: undefined,
-      countryCode: "+91",
+      countryCode: "+1",
     },
   });
   const bookingType = watch("bookingType");
@@ -215,8 +215,8 @@ export default function QuoteForm() {
   ];
   const countryOptions = [
     { value: "+1", label: "+1" },
-    { value: "+44", label: "+44" },
     { value: "+91", label: "+91" },
+    { value: "+44", label: "+44" },
     { value: "+971", label: "+971" },
   ];
 

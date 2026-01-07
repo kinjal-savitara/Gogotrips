@@ -172,7 +172,7 @@ export default function Multicity() {
  };
   return (
     <>
-        <div className="max-w-md mx-auto space-x-2" onSubmit={handleSubmit(onSubmit)}>
+        <div className=" mx-auto space-x-2" onSubmit={handleSubmit(onSubmit)}>
           {rows.map((row, idx) => (
             <div key={idx} className="space-y-2">
               {/* From + To in one line */}

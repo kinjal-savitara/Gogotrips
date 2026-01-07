@@ -50,7 +50,7 @@ interface HeroSliderProps {
 }
 
 const HeroSlider: React.FC<HeroSliderProps> = ({ className }) => {
-  const options: EmblaOptionsType = { align: "center", loop: true };
+  const options: EmblaOptionsType = { align: "start", loop: true };
   const SLIDE_COUNT = 5;
   const slides = Array.from(Array(SLIDE_COUNT).keys());
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay({ playOnInit: true, delay: 5000 })]);

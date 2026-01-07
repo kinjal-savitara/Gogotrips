@@ -36,7 +36,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({ name, value, onChange, options 
             onChange={() => onChange(option.value)}
             className="h-4 w-4 accent-blue-600"
           />
-          <span className="text-sm font-medium">
+          <span className="text-xs font-medium">
             {option.label}
           </span>
         </label>

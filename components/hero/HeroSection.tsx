@@ -11,10 +11,10 @@ import QuoteForm from "../quote-form/QuoteForm";
 export default function HeroSection() {
   return (
     <section className="relative min-h-[900px] w-full overflow-hidden bg-black ">
-      <div className="absolute left-1/2 top-28 sm:top-48 lg:top-52 -translate-x-1/2 z-20 w-full px-4 lg:max-w-[calc(100%-500px)]">
+      <div className="absolute left-1/2 top-28 sm:top-48 lg:top-52 md:bottom-48 -translate-x-1/2 z-20 w-full px-4 lg:max-w-[calc(100%-500px)]">
         <h1
           className="text-center text-white font-bold leading-tight
-                 text-xl sm:text-2xl lg:text-3xl"
+                 text-xl sm:text-2xl lg:text-3xl mb-11"
         >
           USA-India Flight Deals For Any City, Any Date!
         </h1>
