@@ -11,7 +11,7 @@ import * as yup from "yup";
 import CustomSelect from "../custom-select/CustomSelect";
 import { DatePicker } from "../datepicker/date-picker";
 import { DateRangePicker } from "../datepicker/DateRangePicker";
-import RedioGroup from "../redio group/RedioGroup";
+import RadioGroup from "../redio-group/RadioGroup";
 import Multicity from "./Multicity";
 
 type QuoteFormValues = {
@@ -33,7 +33,7 @@ type QuoteFormValues = {
 
 const Validationschema: any = yup.object().shape({
   bookingType: yup.string().required("Booking type is required"),
-  departure: yup.string().when("bookingType",{
+  departure: yup.string().when("bookingType", {
     is: (val: string) => val === "oneway" || val === "return",
     then: (schema: any) => schema.required("Departure date is required"),
     otherwise: (schema: any) => schema.notRequired(),
@@ -55,7 +55,7 @@ const Validationschema: any = yup.object().shape({
   //   .typeError("Please select a return date")
   //   .required("Return date is required")
   //   .min(yup.ref("departure"), "Return date cannot be before departure"),
-    returnDate:yup.string().when("bookingType",{
+  returnDate: yup.string().when("bookingType", {
     is: (val: string) => val === "return",
     then: (schema: any) => schema.required("Departure & Return date is required"),
     otherwise: (schema: any) => schema.notRequired(),
@@ -69,18 +69,20 @@ const Validationschema: any = yup.object().shape({
   // }),
   fullName: yup.string().required("Full name is required").trim("Full name is required"),
 
- departurePlace: yup.string().when("bookingType",{
+  departurePlace: yup.string().when("bookingType", {
     is: (val: string) => val === "oneway" || val === "return",
-    then: (schema: any) => schema.required("Departure place is required").trim("Departure place is required"),
+    then: (schema: any) =>
+      schema.required("Departure place is required").trim("Departure place is required"),
     otherwise: (schema: any) => schema.notRequired(),
   }),
   //  departurePlace: yup
   //   .string()
   //   .required("Departure place is required")
   //   .trim("Departure place is required"),
-    arrival: yup.string().when("bookingType",{
+  arrival: yup.string().when("bookingType", {
     is: (val: string) => val === "oneway" || val === "return",
-    then: (schema: any) => schema.required("Arrival place is required").trim("Arrival place is required"),
+    then: (schema: any) =>
+      schema.required("Arrival place is required").trim("Arrival place is required"),
     otherwise: (schema: any) => schema.notRequired(),
   }),
   // arrival: yup.string().required("Arrival place is required").trim("Arrival place is required"),
@@ -94,17 +96,17 @@ const Validationschema: any = yup.object().shape({
   phone: yup.string().required("Phone number required").max(15, "Phone number is too long"),
   message: yup.string().optional(),
   countryCode: yup.string().required("Country code required"),
-  from:yup.string().when("bookingType",{
+  from: yup.string().when("bookingType", {
     is: (val: string) => val === "multi",
     then: (schema: any) => schema.required("From place is required").trim("From place is required"),
     otherwise: (schema: any) => schema.notRequired(),
   }),
- to:yup.string().when("bookingType",{
+  to: yup.string().when("bookingType", {
     is: (val: string) => val === "multi",
     then: (schema: any) => schema.required("To place is required").trim("To place is required"),
     otherwise: (schema: any) => schema.notRequired(),
   }),
- date:yup.string().when("bookingType",{
+  date: yup.string().when("bookingType", {
     is: (val: string) => val === "multi",
     then: (schema: any) => schema.required("Date is required").trim("Date is required"),
     otherwise: (schema: any) => schema.notRequired(),
@@ -153,7 +155,7 @@ export default function QuoteForm() {
     console.log("Form Submitted:", data);
     // reset();
   };
-  const renderContent = (error: any, field: returnField,) => {
+  const renderContent = (error:any) => {
     if (bookingType === "oneway")
       return (
         <>
@@ -172,8 +174,7 @@ export default function QuoteForm() {
       return (
         <>
           <div className="">
-            <DateRangePicker
-            />
+            <DateRangePicker/>
             {(error.error || errors.returnDate) && (
               <p className="text-red-400 text-xs">
                 {error.error?.message || errors.returnDate?.message}
@@ -182,30 +183,25 @@ export default function QuoteForm() {
           </div>
         </>
       );
-    if (bookingType === "multi") return (
-      <div className="">
-        <div className=" flex flex-row justify-between">
-          {(error.error || errors.from) && (
-            <p className="text-red-400 text-xs">{error.error?.message || errors.from?.message}</p>
-          )}
-          {(error.error || errors.to) && (
-            <p className="text-red-400 text-xs">{error.error?.message || errors.to?.message}</p>
+    if (bookingType === "multi")
+      return (
+        <div className="">
+          <div className=" flex flex-row justify-between">
+            {(error.error || errors.from) && (
+              <p className="text-red-400 text-xs">{error.error?.message || errors.from?.message}</p>
+            )}
+            {(error.error || errors.to) && (
+              <p className="text-red-400 text-xs">{error.error?.message || errors.to?.message}</p>
+            )}
+          </div>
+
+          <Multicity />
+
+          {(error.error || errors.date) && (
+            <p className="text-red-400 text-xs">{error.error?.message || errors.date?.message}</p>
           )}
         </div>
-        
-      <Multicity />
-        
-        {/* {(error.error || errors.from) && (
-          <p className="text-red-400 text-xs">{error.error?.message || errors.from?.message}</p>
-        )}
-        {(error.error || errors.to) && (
-          <p className="text-red-400 text-xs">{error.error?.message || errors.to?.message}</p>
-        )} */}
-        {(error.error || errors.date) && (
-          <p className="text-red-400 text-xs">{error.error?.message || errors.date?.message}</p>
-        )}
-      </div>
-    );
+      );
     return null;
   };
   const typeOptions = [
@@ -223,7 +219,7 @@ export default function QuoteForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="text-white w-full space-y-4">
       {/* Input Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-0 gap-4 relative z-10">
         {/* Departure / Return */}
         <Controller
           name="bookingType"
@@ -236,7 +232,7 @@ export default function QuoteForm() {
             //   value={typeOptions.find((i) => i.value === field.value)}
 
             // />
-            <RedioGroup
+            <RadioGroup
               name="bookingType"
               value={field.value}
               onChange={field.onChange}
@@ -249,7 +245,7 @@ export default function QuoteForm() {
           control={control}
           render={({ field, fieldState }) => renderContent(errors)}
         />
-     
+
         {/* <Controller
           name="departure"
           control={control}
@@ -391,7 +387,7 @@ export default function QuoteForm() {
           className="px-4 py-3 text-xl"
           onClick={() => {
             if (isSubmitting) {
-              window.open({ WHATSAPP_URL }, "_blank");
+              window.open({WHATSAPP_URL}, "_blank");
             }
           }}
 

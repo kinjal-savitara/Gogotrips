@@ -37,27 +37,27 @@ export default function JoinVIPList() {
       {/* Heading */}
       {/* <div className="bg-blue-section shadow-[0px_4px_4px_0px_#00000040] rounded-lg grid md:grid-cols-2 grid-cols-1 gap-5"> */}
       <div className="bg-blue-section shadow-[0px_4px_4px_0px_#00000040] rounded-lg grid  grid-cols-1 gap-5 md:flex">
-        <div className="md:px-7 md:py-10 py-7 px-3">
+        <div className="md:px-7 md:py-10 py-7 px-3 ">
           <h2 className="text-[15px] md:text-base lg:text-xl font-bold text-primary mb-2">
             YOUR TICKET TO HOME, HANDLED WITH CARE
           </h2>
           <p className="text-xs md:text-[15px] font-light text-primary">
             Special fares, genuine guidance, and a team that treats your travel like family.
           </p>
-          <div className="flex flex-wrap gap-2 my-4 md:my-7 sm:gap-1">
-            <div className="bg-project-pink px-2 border border-project-white py-1.5 rounded-standard text-[10px] font-medium text-white">
+          <div className="flex flex-wrap gap-1 my-4 md:my-7 sm:gap-1">
+            <div className="bg-project-pink px-2 border border-project-white py-1 rounded-standard text-[10px] font-medium text-white">
               VIP Price Alerts
             </div>
-            <div className="bg-project-pink px-2 border border-project-white py-1.5 rounded-standard text-[10px] font-medium text-white">
+            <div className="bg-project-pink px-2 border border-project-white py-1 rounded-standard text-[10px] font-medium text-white">
               Exclusive Discounts
             </div>
-            <div className="bg-project-pink px-2 border border-project-white py-1.5 rounded-standard text-[10px] font-medium text-white">
+            <div className="bg-project-pink px-2 border border-project-white py-1 rounded-standard text-[10px] font-medium text-white">
               24/7 Priority Support
             </div>
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="text-white w-full space-y-4 grid grid-cols-1 md:grid-cols-2 md:gap-2 max-md:max-w-80 md:flex md:flex-col"
+            className="text-white w-full md:w-80 sm:w-80 lg:w-full space-y-4 grid grid-cols-1 md:grid-cols-2 md:gap-2 max-md:max-w-80 md:flex md:flex-col"
           >
             <div className="space-y-1">
               <Input

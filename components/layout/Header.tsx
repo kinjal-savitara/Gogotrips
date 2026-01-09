@@ -1,4 +1,4 @@
-import { CALL_URL, PHONE_NUMBER, WHATSAPP_URL } from "@/app/constant";
+import { CALL_URL, PHONE_NUMBER } from "@/app/constant";
 import { Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,7 +37,7 @@ export default function Header() {
           <Separator orientation="vertical" className="h-4! bg-primary" />
           {/* WhatsApp link */}
           <Link
-            href={WHATSAPP_URL}
+            href={`https://wa.me/+19543475414?text=Hi, I would like to know more about the`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center rounded-full size-6 xs:size-8 sm:size-12 bg-[#4BAE4F] hover:bg-[#188f1c] transition-all duration-300"

@@ -7,22 +7,20 @@ import { ComponentPropsWithRef, useCallback, useEffect, useRef, useState } from 
 import styles from "../styles/testimonials.module.css";
 import TestimonialVideoCard from "./TestimonialVideoCard";
 
-
-
 const slides = [
   {
     id: 1,
     name: "Khushboo",
     location: "New York, USA",
     video: "/videos/khusboo.mp4",
-    desc : "We booked a flight from Gogo Trips with the help of Disha.And it was amazing. And the Disha is doing great job. I really like the service. We will definitely go again with Gogo Trips. Thank you so much.",
+    desc: "We booked a flight from Gogo Trips with the help of Disha.And it was amazing. And the Disha is doing great job. I really like the service. We will definitely go again with Gogo Trips. Thank you so much.",
   },
   {
     id: 2,
     name: "Dhruvil",
     location: "Birmingham, UK",
     video: "/videos/dhruvil.mp4",
-    desc : "GoGo Trips made my Ahmedabad–Birmingham flight booking simple, transparent, and within budget. Henish Patel’s support and updates were excellent. I highly recommend them!",
+    desc: "GoGo Trips made my Ahmedabad–Birmingham flight booking simple, transparent, and within budget. Henish Patel’s support and updates were excellent. I highly recommend them!",
   },
   {
     id: 3,
@@ -56,17 +54,14 @@ const DotButton: React.FC<PropType> = (props) => {
 
 export default function Testimonials() {
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true },
-   
-  );
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
   // const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const autoPlayRef = useRef<any>(null)
+  const autoPlayRef = useRef<any>(null);
   const realIndex = selectedIndex % slides.length;
 
   const onDotButtonClick = useCallback(
@@ -77,41 +72,44 @@ export default function Testimonials() {
     [emblaApi]
   );
 
+  // useEffect(() => {
+  //   if (!emblaApi) return;
 
-// useEffect(() => {
-//   if (!emblaApi) return;
+  //   const autoplay = setInterval(() => {
+  //     emblaApi.scrollNext();
+  //   }, 5000);
 
-//   const autoplay = setInterval(() => {
-//     emblaApi.scrollNext();
-//   }, 5000); 
+  //   return () => clearInterval(autoplay);
+  // }, [emblaApi]);
+  useEffect(() => {
+    if (!emblaApi) return;
 
-//   return () => clearInterval(autoplay);
-// }, [emblaApi]);
-useEffect(() => {
-  if (!emblaApi) return;
+    const video = document.querySelector("video");
 
-  const video = document.querySelector('video');
+    video?.pause();
 
-  video?.pause();
-
-   autoPlayRef.current = setInterval(() => {
-    emblaApi.scrollNext();
-  }, 5000);
-
-  return () => {
-    clearInterval(autoPlayRef.current);
-    video?.play();
-  };
-}, [emblaApi]);
-
-const autoPlayFn = useCallback((play: boolean) => {
-  if (!play) {
-    clearInterval(autoPlayRef.current);
-  }else{
     autoPlayRef.current = setInterval(() => {
-      emblaApi?.scrollNext();
-    }, 5000); 
-  }}, [emblaApi]);
+      emblaApi.scrollNext();
+    }, 5000);
+
+    return () => {
+      clearInterval(autoPlayRef.current);
+      video?.play();
+    };
+  }, [emblaApi]);
+
+  const autoPlayFn = useCallback(
+    (play: boolean) => {
+      if (!play) {
+        clearInterval(autoPlayRef.current);
+      } else {
+        autoPlayRef.current = setInterval(() => {
+          emblaApi?.scrollNext();
+        }, 5000);
+      }
+    },
+    [emblaApi]
+  );
 
   const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
     setSelectedIndex(emblaApi.selectedScrollSnap());
@@ -152,7 +150,6 @@ const autoPlayFn = useCallback((play: boolean) => {
           engine.slideLooper.loopPoints.forEach((loopItem) => {
             const target = loopItem.target();
 
-            
             if (slideIndex === loopItem.index && target !== 0) {
               const sign = Math.sign(target);
 
@@ -204,9 +201,10 @@ const autoPlayFn = useCallback((play: boolean) => {
                 <div className={styles.embla__slide} key={i.id}>
                   <div className="embla__slide__number">
                     <TestimonialVideoCard data={i} autoPlayFn={autoPlayFn} />
-                    <div className="mt-3 ml-3 absolute p-2">
+                    <div tabIndex={0} className="mt-3 ml-3 absolute p-2 focus-within:[&>p]:line-clamp-none">
                       <p className=" text-yellow-400">★★★★☆</p>
-                      <p className="text-sm text-black font-light mb-3 leading-relaxed line-clamp-2 overflow-hidden hover:line-clamp-none max-w-md sm:hover:line-clamp-none">
+                      <p 
+                      className="text-sm text-black font-light mb-3 leading-relaxed line-clamp-2 overflow-hidden  max-w-md">
                         {i.desc}
                       </p>
                     </div>

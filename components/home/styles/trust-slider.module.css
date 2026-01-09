@@ -4,7 +4,8 @@
   --slide-height: 19rem;
   --slide-spacing: 10px;
   --slide-size: 55%;
-  overflow: visible;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 @media screen and (min-width: 475px) {
   .embla {
@@ -23,6 +24,7 @@
 }
 .embla__container {
   display: flex;
+  /* overflow: hidden; */
   touch-action: pan-y pinch-zoom;
   margin-left: calc(var(--slide-spacing) * -1);
 }
